@@ -28,12 +28,12 @@ cp /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCor
 ![Click Enable](docs/click-enable.png)
 
 5. Disable System Integrity Protection
-  1. Reboot into recovery mode (Press cmd-R when booting)
-  2. Execute in Terminal in recovery mode:
-  ```
-  csrutils disable
-  ```
-  3. Reboot into macOS
+    1. Reboot into recovery mode (Press cmd-R when booting)
+    2. Execute in Terminal in recovery mode:
+    ```
+    csrutils disable
+    ```
+    3. Reboot into macOS
 
 6. Mount system volume as read-write (in Terminal):
 
