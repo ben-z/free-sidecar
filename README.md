@@ -5,7 +5,7 @@ Unlocks [Sidecar](https://support.apple.com/en-ca/HT210380) for older, unsupport
 This has been tested on Macbook Pro (Early 2015) running macOS 10.15 (19A602) (release version) and iPad Air 2 in wired mode.
 Note that wireless mode may not work for all older devices.
 
-[Download Free Sidecar](https://github.com/ben-z/free-sidecar/releases)
+[Download Free Sidecar](https://github.com/ben-z/free-sidecar/releases/latest/download/free-sidecar.zip)
 
 
 ### Notes
