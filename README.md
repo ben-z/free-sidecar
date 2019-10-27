@@ -2,14 +2,14 @@
 
 Unlocks [Sidecar](https://support.apple.com/en-ca/HT210380) for older, unsupported iPads and Macs.
 
-This has been tested on Macbook Pro (Early 2015) and iPad Air 2 in wired mode.
+This has been tested on Macbook Pro (Early 2015) running macOS 10.15 (19A602) (release version) and iPad Air 2 in wired mode.
 Note that wireless mode may not work for all older devices.
 
 [Download Free Sidecar](#TODO)
 
 
 ### Notes
-1. Apple uses a simple "blacklist" on macOS to disable iOS 13/macOS Catalina devices from using Sidecar. To work around this, we simply need to edit the blacklist in `/System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore` (can be done with any hex editor of your choice).
+1. Apple uses a simple "blacklist" on macOS to disable iPadOS 13/macOS Catalina devices from using Sidecar. To work around this, we simply need to edit the blacklist in `/System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore` (can be done with any hex editor of your choice).
 2. This app is a UI for editing `SidecarCore`..
 3. This app is sandboxed and does not need root access. I've left everything that needs root access for you to execute in the Terminal.
 
