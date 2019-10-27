@@ -14,6 +14,7 @@
 		B54B52862365100B00FF9CE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B54B52842365100B00FF9CE3 /* Main.storyboard */; };
 		B54B52922365100B00FF9CE3 /* free_sidecarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B52912365100B00FF9CE3 /* free_sidecarTests.swift */; };
 		B54B529D2365100B00FF9CE3 /* free_sidecarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B529C2365100B00FF9CE3 /* free_sidecarUITests.swift */; };
+		B54B52AB2365122D00FF9CE3 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B52AA2365122D00FF9CE3 /* utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,8 @@
 		B54B52982365100B00FF9CE3 /* free-sidecarUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "free-sidecarUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B54B529C2365100B00FF9CE3 /* free_sidecarUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = free_sidecarUITests.swift; sourceTree = "<group>"; };
 		B54B529E2365100B00FF9CE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B54B52AA2365122D00FF9CE3 /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
+		B54B52AC2365270500FF9CE3 /* free-sidecar-playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "free-sidecar-playground.playground"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +101,7 @@
 		B54B527A2365100A00FF9CE3 /* free-sidecar */ = {
 			isa = PBXGroup;
 			children = (
+				B54B52AC2365270500FF9CE3 /* free-sidecar-playground.playground */,
 				B54B527B2365100A00FF9CE3 /* AppDelegate.swift */,
 				B54B527D2365100A00FF9CE3 /* ContentView.swift */,
 				B54B527F2365100B00FF9CE3 /* Assets.xcassets */,
@@ -105,6 +109,7 @@
 				B54B52872365100B00FF9CE3 /* Info.plist */,
 				B54B52882365100B00FF9CE3 /* free_sidecar.entitlements */,
 				B54B52812365100B00FF9CE3 /* Preview Content */,
+				B54B52AA2365122D00FF9CE3 /* utils.swift */,
 			);
 			path = "free-sidecar";
 			sourceTree = "<group>";
@@ -266,6 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B54B52AB2365122D00FF9CE3 /* utils.swift in Sources */,
 				B54B527E2365100A00FF9CE3 /* ContentView.swift in Sources */,
 				B54B527C2365100A00FF9CE3 /* AppDelegate.swift in Sources */,
 			);
