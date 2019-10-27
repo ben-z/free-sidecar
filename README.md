@@ -26,7 +26,7 @@ cp /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCor
 ![Free Sidecar](docs/free-sidecar.png)
 
 4. Click `Enable` to enable sidecar for the device:
-
+    - Run `sysctl hw.model` in Terminal to find out your mac model. For iPad model, go [here](https://everymac.com/ultimate-mac-lookup/).
 ![Click Enable](docs/click-enable.png)
 
 5. Disable System Integrity Protection
