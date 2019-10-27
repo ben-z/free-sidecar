@@ -5,7 +5,7 @@ Unlocks [Sidecar](https://support.apple.com/en-ca/HT210380) for older, unsupport
 This has been tested on Macbook Pro (Early 2015) running macOS 10.15 (19A602) (release version) and iPad Air 2 in wired mode.
 Note that wireless mode may not work for all older devices.
 
-[Download Free Sidecar](#TODO)
+[Download Free Sidecar](https://github.com/ben-z/free-sidecar/releases)
 
 
 ### Notes
@@ -27,7 +27,7 @@ cp /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCor
 cp /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore ~/Downloads
 ```
 
-3. Open [Free Sidecar](#TODO) (note that macOS may prevent you from running the app. In that case, open `System Preferences - Security & Privacy - General` and select `Open Anyway`) and choose the location of the SidecarCore file to be patched (~/Downloads/SidecarCore from step 2.
+3. Open [Free Sidecar](https://github.com/ben-z/free-sidecar/releases) (note that macOS may prevent you from running the app. In that case, open `System Preferences - Security & Privacy - General` and select `Open Anyway`) and choose the location of the SidecarCore file to be patched (~/Downloads/SidecarCore from step 2.
 
 ![Free Sidecar](docs/free-sidecar.png)
 
@@ -72,3 +72,8 @@ csrutil enable
 ### Contributing
 
 Submit PRs and open issues!
+
+### Inspirations
+
+[SidecarPatcher](https://github.com/pookjw/SidecarPatcher) - This replaces a hex string that only exists in beta versions (thus does not work for the final release). [Free Sidecar](https://github.com/ben-z/free-sidecar/)
+ uses matches partial device models (details [here](https://github.com/ben-z/free-sidecar/blob/1390f561000ccfc6122bcae0b1fff1cd5da3b0f0/free-sidecar/utils.swift#L83-L91)) should work for future versions of macOS as well.
