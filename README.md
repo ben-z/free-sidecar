@@ -23,6 +23,8 @@ cp /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCor
 
 3. Open [Free Sidecar](#TODO) and choose the location of the SidecarCore file to be patched (~/Downloads/SidecarCore from step 2.
 
+![Free Sidecar](docs/free-sidecar.png)
+
 4. Click `Enable` to enable sidecar for the device:
 
 ![Click Enable](docs/click-enable.png)
