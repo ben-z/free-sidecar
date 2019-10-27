@@ -7,6 +7,12 @@ Note that wireless mode may not work for all older devices.
 
 [Download Free Sidecar](#TODO)
 
+
+### Notes
+1. Apple uses a simple "blacklist" on macOS to disable iOS 13/macOS Catalina devices from using Sidecar. To work around this, we simply need to edit the blacklist in `/System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore` (can be done with any hex editor of your choice).
+2. This app is a UI for editing `SidecarCore`..
+3. This app is sandboxed and does not need root access. I've left everything that needs root access for you to execute in the Terminal.
+
 ### Getting Started
 
 1. Make a backup of SidecarCore (run this in Terminal):
@@ -21,7 +27,7 @@ cp /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCor
 cp /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore ~/Downloads
 ```
 
-3. Open [Free Sidecar](#TODO) and choose the location of the SidecarCore file to be patched (~/Downloads/SidecarCore from step 2.
+3. Open [Free Sidecar](#TODO) (note that macOS may prevent you from running the app. In that case, open `System Preferences - Security & Privacy - General` and select `Open Anyway`) and choose the location of the SidecarCore file to be patched (~/Downloads/SidecarCore from step 2.
 
 ![Free Sidecar](docs/free-sidecar.png)
 
