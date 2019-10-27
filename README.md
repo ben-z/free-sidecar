@@ -36,7 +36,7 @@ cp /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCor
     - Run `sysctl hw.model` in Terminal to find out your mac model. For iPad model, go [here](https://everymac.com/ultimate-mac-lookup/).
 ![Click Enable](docs/click-enable.png)
 
-5. Disable System Integrity Protection
+5. Disable System Integrity Protection. This will allow us to mount `/` as read-write and modify `SidecarCore` under the `/System` directory.
     1. Reboot into recovery mode (Press cmd-R when booting)
     2. Execute in Terminal in recovery mode:
     ```
