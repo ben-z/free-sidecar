@@ -31,7 +31,7 @@ cp /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCor
 
 ![Free Sidecar](docs/free-sidecar.png)
 
-4. Click `Enable` to enable sidecar for the device:
+4. Click `Enable` to enable sidecar for the corresponding device. This will modify the `SidecarCore` that you've selected in step 3 (you will be replacing the system `SidecarCore` with this file in step 7):
     - Run `sysctl hw.model` in Terminal to find out your mac model. For iPad model, go [here](https://everymac.com/ultimate-mac-lookup/).
 ![Click Enable](docs/click-enable.png)
 
