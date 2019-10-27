@@ -76,4 +76,4 @@ Submit PRs and open issues!
 ### Inspirations
 
 [SidecarPatcher](https://github.com/pookjw/SidecarPatcher) - This replaces a hex string that only exists in beta versions (thus does not work for the final release). [Free Sidecar](https://github.com/ben-z/free-sidecar/)
- uses matches partial device models (details [here](https://github.com/ben-z/free-sidecar/blob/1390f561000ccfc6122bcae0b1fff1cd5da3b0f0/free-sidecar/utils.swift#L83-L91)) should work for future versions of macOS as well.
+ uses partial device model string matching (details [here](https://github.com/ben-z/free-sidecar/blob/1390f561000ccfc6122bcae0b1fff1cd5da3b0f0/free-sidecar/utils.swift#L83-L91)) should work for future versions of macOS as well.
