@@ -40,7 +40,7 @@ cp /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCor
     1. Reboot into recovery mode (Press cmd-R when booting)
     2. Execute in Terminal in recovery mode:
     ```
-    csrutils disable
+    csrutil disable
     ```
     3. Reboot into macOS
 
