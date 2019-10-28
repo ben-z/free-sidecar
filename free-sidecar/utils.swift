@@ -111,7 +111,7 @@ func dostuff2(sidecarCore: URL) -> [Model] {
         let hexStr = contents.hexEncodedString(options: [.upperCase])
         
         let devicesStr = devices.map{ hexDict[$0]! }.joined(separator: "|")
-        let matched = hexStr.match(pattern: "(\(devicesStr))([^(\(hexDict[" "]!))]+)\(hexDict[","]!)([^(\(hexDict[" "]!))]+)\(hexDict[" "]!)")
+        let matched = hexStr.match(pattern: "(\(devicesStr))((?:(?!00)[0-9A-Z])+)\(hexDict[","]!)((?:(?!00)[0-9A-Z])+)\(hexDict[" "]!)")
         
         let models = matched.map({ res -> Model in
             let hex = res[0].matchedStr

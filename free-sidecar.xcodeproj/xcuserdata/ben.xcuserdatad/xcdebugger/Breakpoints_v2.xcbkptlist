@@ -7,39 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "44F969A8-7554-4827-854A-665495271EBC"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "free-sidecar/utils.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "dostuff2(sidecarCore:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2EB77558-C8E6-4C9D-8D67-53C9B54B3AEA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            condition = "[UInt8](Data(hex: modelHex))[0] &amp; 0xC0 != 0"
-            continueAfterRunningActions = "No"
-            filePath = "free-sidecar/utils.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "dostuff2(sidecarCore:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "35AE2272-055C-41F6-98E4-28BE12DFCE81"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -82,22 +49,6 @@
             startingLineNumber = "146"
             endingLineNumber = "146"
             landmarkName = "patch(model:sidecarCore:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0539A45D-F2EB-420C-9498-E2DD01307A1A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "free-sidecar/utils.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
-            landmarkName = "dostuff2(sidecarCore:)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
