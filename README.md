@@ -78,7 +78,7 @@ csrutil enable
      
 2. "Error 32002"
 
-    This happens on wireless connection for some models. Try using a wire instead.
+    This happens on wireless connection for some models. Try using a wire instead. (Some people have reported that wired isn't working either on some older models e.g. [MacbookPro 2012](https://www.reddit.com/r/MacOSBeta/comments/dnxxc7/psa_enable_sidecar_on_older_devices_works_for/f5l64ni?utm_source=share&utm_medium=web2x))
     
 3. "None of my apps open anymore, They keep crashing!"
     
