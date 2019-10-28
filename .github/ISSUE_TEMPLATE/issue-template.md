@@ -1,6 +1,6 @@
 ---
-name: Issue Template
-about: What's wrong?
+name: New Issue
+about: Something is not working? File an issue
 title: ''
 labels: ''
 assignees: ''
