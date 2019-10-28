@@ -70,6 +70,25 @@ csrutil enable
 
 10. Reboot Into macOS, the patched devices should now work in wired mode.
 
+### Troubleshooting
+
+1. "The iPad picture quality is sub-optimal!"
+
+    Try using wired connection. For older Macs without hardware HEVC encoder/decoders, it may need extra bandwidth to transmit the screen.
+     
+2. "Error 32002"
+
+    This happens on wireless connection for some models. Try using a wire instead.
+    
+3. "None of my apps open anymore, They keep crashing!"
+    
+    You probably forgot to do step 8. If you can use the Terminal, do steps 5,6 and 8 again. If you can't use the Terminal (it keeps crashing), boot into [single user mode](http://osxdaily.com/2018/10/29/boot-single-user-mode-mac/) and do steps 6 and 8 after doing step 5 in Recovery Mode.
+    
+4. My question isn't listed
+    
+    Search in [https://github.com/ben-z/free-sidecar/issues](issues) or open a new one! Note that I can only fix things that are specific to Free Sidecar (enable/disable sidecar for certain devices). Most usability issues with Sidecar can only be addressed by Apple.
+    
+
 ### Contributing
 
 Submit PRs and open issues!
