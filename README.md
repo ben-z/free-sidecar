@@ -88,6 +88,17 @@ csrutil enable
     
     Search in [https://github.com/ben-z/free-sidecar/issues](issues) or open a new one! Note that I can only fix things that are specific to Free Sidecar (enable/disable sidecar for certain devices). Most usability issues with Sidecar can only be addressed by Apple.
     
+5. "I want to revert to the `SidecarCore`"
+    
+    Hope you still have the backup file from step 1! (`~/Downloads/SidecarCore.bak`). Disable System Integrity Protection (step 5), mount the system volume as read-write (step 6) and run the following commands in Terminal:
+    
+    ```
+    sudo cp ~/Downloads/SidecarCore.bak /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore
+    
+    sudo codesign -f -s - /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore
+    ```
+    
+    Then re-enable System Integrity Protection (step 9). Your system should be in the same state as before you applied the patch!
 
 ### Contributing
 
