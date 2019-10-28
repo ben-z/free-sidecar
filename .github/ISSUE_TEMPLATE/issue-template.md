@@ -1,6 +1,6 @@
 ---
 name: New Issue
-about: Something is not working? File an issue
+about: Something is not working? File an issue.
 title: ''
 labels: ''
 assignees: ''
