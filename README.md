@@ -28,7 +28,7 @@ cp /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCor
 cp /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore ~/Downloads
 ```
 
-3. Open [Free Sidecar](https://github.com/ben-z/free-sidecar/releases) (note that macOS may prevent you from running the app. In that case, open `System Preferences - Security & Privacy - General` and select `Open Anyway`) and choose the location of the SidecarCore file to be patched (~/Downloads/SidecarCore from step 2.
+3. Open [Free Sidecar](https://github.com/ben-z/free-sidecar/releases) (note that macOS may prevent you from running the app. In that case, open `System Preferences - Security & Privacy - General` and select `Open Anyway`) and choose the location of the SidecarCore file to be patched (~/Downloads/SidecarCore from step 2).
 
 ![Free Sidecar](docs/free-sidecar.png)
 
