@@ -10,9 +10,10 @@ Note that wireless mode may not work for all older devices.
 
 ### Notes
 1. Apple uses a simple "blacklist" on macOS to disable iPadOS 13/macOS Catalina devices from using Sidecar. To work around this, we simply need to edit the blacklist in `/System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore` (can be done with any hex editor of your choice).
-2. This app is a UI for editing `SidecarCore`.
-3. This app is sandboxed and does NOT need root access. I've left everything that needs root access for you to execute in the Terminal.
-4. The entire process includes 2 restarts into the recovery partition and should take around 5-15 minutes.
+1. This app is a UI for editing `SidecarCore`.
+1. This app is sandboxed and does NOT need root access. I've left everything that needs root access for you to execute in the Terminal.
+1. This app works on all versions of iPadOS and macOS Catalina, including upcoming releases (assuming Apple doesn't change how they blacklist devices—in which case this app will be a no-op).
+1. The entire process includes 2 restarts into the recovery partition and should take around 5-15 minutes.
 
 ### Getting Started
 
