@@ -85,7 +85,7 @@ csrutil enable
     
     You probably forgot to do step 8. If you can use the Terminal, do steps 5,6 and 8 again. If you can't use the Terminal (it keeps crashing), boot into [single user mode](http://osxdaily.com/2018/10/29/boot-single-user-mode-mac/) and do steps 6 and 8 after doing step 5 in Recovery Mode.
 
-1. In the code-signing step, I'm getting `the codesign_allocate helper tool cannot be found or used`.
+1. "In the code-signing step, I'm getting `the codesign_allocate helper tool cannot be found or used`."
 
     Make sure you have the latest Xcode comandline tools! See issues [#2](https://github.com/ben-z/free-sidecar/issues/2) and [#3](https://github.com/ben-z/free-sidecar/issues/3).
 
