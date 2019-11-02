@@ -91,7 +91,7 @@ csrutil enable
 
 1. "My question isn't listed"
     
-    Search in [https://github.com/ben-z/free-sidecar/issues](issues) or open a new one! Note that I can only fix things that are specific to Free Sidecar (enable/disable sidecar for certain devices). Most usability issues with Sidecar can only be addressed by Apple.
+    Search in [issues](https://github.com/ben-z/free-sidecar/issues) or open a new one! Note that I can only fix things that are specific to Free Sidecar (enable/disable sidecar for certain devices). Most usability issues with Sidecar can only be addressed by Apple.
     
 1. "I want to revert to the original `SidecarCore`"
     
