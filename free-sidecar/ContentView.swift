@@ -8,6 +8,26 @@
 
 import SwiftUI
 
+struct ModelButtonStyle: ButtonStyle {
+    let isEnabled: Bool
+
+    init(isEnabled: Bool) {
+        self.isEnabled = isEnabled
+    }
+
+    func makeBody(configuration: Self.Configuration) -> some View {
+        let borderColor = self.isEnabled ? Color.green : Color.orange
+        let backgroundColor = configuration.isPressed ? Color.clear : borderColor
+
+        return configuration.label
+            .foregroundColor(configuration.isPressed ? Color.white : Color.black)
+            .background(backgroundColor)
+            .border(borderColor, width: 2)
+            .cornerRadius(4)
+            .padding(2)
+    }
+}
+
 struct ContentView: View {
     @State var selectedURL: URL?
     @State var models: [Model] = []
@@ -66,7 +86,6 @@ struct ContentView: View {
                             if result == .OK {
                                 self.selectedURL = panel.url
                                 self.models = dostuff2(sidecarCore: panel.url!);
-
                             }
                         }
                     }) {
@@ -87,9 +106,9 @@ struct ContentView: View {
                                 self.models = dostuff2(sidecarCore: self.selectedURL!)
                             }) {
                                 Text(model.enabled ? "\(model.str) enabled" : "Enable \(model.str)")
-                                    .foregroundColor(Color.black)
+                                    .padding()
                             }
-                            .background(model.enabled ? Color.green : Color.orange)
+                            .buttonStyle(ModelButtonStyle(isEnabled: model.enabled))
                         }.frame(minHeight: 300)
                     } else {
                         Text("Select a SidecarCore first")
