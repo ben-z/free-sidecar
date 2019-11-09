@@ -89,6 +89,13 @@ csrutil enable
 
     Make sure you have the latest Xcode comandline tools! See issues [#2](https://github.com/ben-z/free-sidecar/issues/2) and [#3](https://github.com/ben-z/free-sidecar/issues/3).
 
+1. General questions to consider before opening an issue:
+    1. Did you try wired mode?
+    1. Does your device show up in Finder's sidebar?
+    1. Did you click "trust" in Finder under the device tab?
+    1. Did you try unlocking your iPad before connecting?
+    1. Did you try restarting both devices and connecting again?
+
 1. "My question isn't listed"
     
     Search in [issues](https://github.com/ben-z/free-sidecar/issues) or open a new one! Note that I can only fix things that are specific to Free Sidecar (enable/disable sidecar for certain devices). Most usability issues with Sidecar can only be addressed by Apple.
