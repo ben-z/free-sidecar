@@ -1,6 +1,6 @@
 # Free Sidecar
 
-Unlocks [Sidecar](https://support.apple.com/en-ca/HT210380) for older, unsupported iPads and Macs.
+Unlocks [Sidecar](https://support.apple.com/en-ca/HT210380) for older, unsupported iPads and Macs (supports all iPads running iPadOS and Macs running macOS Catalina or newer).
 
 This has been tested on Macbook Pro (Early 2015) running macOS 10.15 (19A602) (release version) and iPad Air 2 in wired mode.
 Note that wireless mode may not work for all older devices.
