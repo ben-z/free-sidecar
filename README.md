@@ -10,7 +10,7 @@ Unlocks [Sidecar](https://support.apple.com/en-ca/HT210380) for older, unsupport
 
 **Full list of supported iPads (running iPadOS):** iPad Air 2, iPad Air (3rd generation), iPad (5th generation), iPad (6th generation), iPad (7th generation), iPad Mini 4, iPad Mini (5th generation), iPad Pro 9.7-inch, iPad Pro 10.5-inch, iPad Pro 11-inch, iPad Pro 12.9-inch (1st generation), iPad Pro 12.9-inch (2nd generation), iPad Pro 12.9-inch (3rd generation)
 
-**List of supported Macs (running macOS Catalina:** iMac: Late 2012 or newer, iMac Pro, Mac Pro: Late 2013 or newer, Mac Mini: Late 2012 or newer, MacBook: Early 2015 or newer, MacBook Air: Mid 2012 or newer, MacBook Pro: Mid 2012 or newer
+**List of supported Macs (running macOS Catalina or newer):** iMac: Late 2012 or newer, iMac Pro, Mac Pro: Late 2013 or newer, Mac Mini: Late 2012 or newer, MacBook: Early 2015 or newer, MacBook Air: Mid 2012 or newer, MacBook Pro: Mid 2012 or newer
 
 ### Notes
 1. Apple uses a simple "blacklist" on macOS to disable iPadOS 13/macOS Catalina devices from using Sidecar. To work around this, we simply need to edit the blacklist in `/System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore` (can be done with any hex editor of your choice).
