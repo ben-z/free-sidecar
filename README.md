@@ -100,6 +100,7 @@ csrutil enable
     1. Did you click "trust" in Finder under the device tab?
     1. Did you try unlocking your iPad before connecting?
     1. Did you try restarting both devices and connecting again?
+    1. [Try these](https://github.com/ben-z/free-sidecar/issues/39#issuecomment-582487691)
 
 1. "My question isn't listed"
     
