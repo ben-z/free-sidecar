@@ -92,7 +92,7 @@ csrutil enable
 
 1. "In the code-signing step, I'm getting `the codesign_allocate helper tool cannot be found or used`."
 
-    Make sure you have the latest Xcode comandline tools! See issues [#2](https://github.com/ben-z/free-sidecar/issues/2) and [#3](https://github.com/ben-z/free-sidecar/issues/3).
+    Make sure you have the latest Xcode comandline tools! You can install them by running `xcode-select --install` (and optionally also `xcode-select --reset`).
 
 1. General questions to consider before opening an issue:
     1. Did you try wired mode?
