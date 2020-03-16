@@ -63,6 +63,8 @@ sudo cp ~/Downloads/SidecarCore /System/Library/PrivateFrameworks/SidecarCore.fr
 ```
 
 8. Sign the patched SidecarCore (in Terminal):
+    * If you see an error in this step, make sure you have xcode command-line tools installed (`xcode-select --install`, see [#3]) or updated (through App Store, see [#2]).
+    * Don't restart your computer until you complete this step properly (or revert the backup file)! Many people have run into issues with this ([#28], [#22]).
 
 ```
 sudo codesign -f -s - /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore
@@ -92,7 +94,7 @@ csrutil enable
 
 1. "In the code-signing step, I'm getting `the codesign_allocate helper tool cannot be found or used`."
 
-    Make sure you have the latest Xcode comandline tools! See issues [#2](https://github.com/ben-z/free-sidecar/issues/2) and [#3](https://github.com/ben-z/free-sidecar/issues/3).
+    Make sure you have the latest Xcode comandline tools! See issues [#2] and [#3].
 
 1. General questions to consider before opening an issue:
     1. Did you try wired mode?
@@ -126,3 +128,9 @@ Submit PRs and open issues!
 
 [SidecarPatcher](https://github.com/pookjw/SidecarPatcher) - This replaces a hex string that only exists in beta versions (and apparently some official releases?) (thus does not work for me in the final release). [Free Sidecar](https://github.com/ben-z/free-sidecar/)
  uses partial device model string matching (details [here](https://github.com/ben-z/free-sidecar/blob/1390f561000ccfc6122bcae0b1fff1cd5da3b0f0/free-sidecar/utils.swift#L83-L91)) and should work for future versions of macOS as well.
+
+
+[#2]: https://github.com/ben-z/free-sidecar/issues/2
+[#3]: https://github.com/ben-z/free-sidecar/issues/3
+[#22]: https://github.com/ben-z/free-sidecar/issues/22
+[#28]: https://github.com/ben-z/free-sidecar/issues/28
