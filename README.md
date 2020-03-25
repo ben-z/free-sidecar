@@ -70,7 +70,7 @@ sudo cp ~/Downloads/SidecarCore /System/Library/PrivateFrameworks/SidecarCore.fr
 sudo codesign -f -s - /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore
 ```
 
-9. Reboot Into Recovery, re-enable System Integrity Protection:
+9. (Optional, but recommended) Reboot Into Recovery, re-enable System Integrity Protection:
 
 ```
 csrutil enable
