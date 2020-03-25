@@ -4,7 +4,7 @@
 [![](https://img.shields.io/badge/macOS->=10.15%20Catalina-brightgreen)](#)
 [![](https://img.shields.io/badge/iPadOS->=13-brightgreen)](#)
 
-Unlocks [Sidecar](https://support.apple.com/en-ca/HT210380) for older, unsupported iPads and Macs (supports all iPads running iPadOS and Macs running macOS Catalina or newer).
+Unlocks [Sidecar](https://support.apple.com/en-ca/HT210380) for older, unsupported iPads and Macs (supports all iPads running iPadOS and Macs running macOS Catalina or newer **(There is a known issue in macOS Catalina 10.15.4 that breaks self-signed `SidecarCore` files. Please do not use free-sidecar on macOS Catalina 10.15.4 at this time. Check [#59] for updates)**).
 
 [Download the lastest version](https://github.com/ben-z/free-sidecar/releases/latest/download/free-sidecar.zip)
 
@@ -16,7 +16,7 @@ Unlocks [Sidecar](https://support.apple.com/en-ca/HT210380) for older, unsupport
 1. Apple uses a simple "blacklist" on macOS to disable iPadOS 13/macOS Catalina devices from using Sidecar. To work around this, we simply need to edit the blacklist in `/System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore` (can be done with any hex editor of your choice).
 1. This app is a UI for editing `SidecarCore`.
 1. This app is sandboxed and does NOT need root access. I've left everything that needs root access for you to execute in the Terminal.
-1. This app works on all versions of iPadOS and macOS Catalina, including upcoming releases (assuming Apple doesn't change how they blacklist devices—in which case this app will be a no-op).
+1. This app works on all versions of iPadOS and macOS Catalina, including upcoming releases (assuming Apple doesn't change how they blacklist devices—in which case this app will be a no-op). **Breaking: macOS Catalina 10.15.4 breaks self-signed `SidecarCore` files. Please do not use free-sidecar on macOS Catalina 10.15.4 at this time. Check [#59] for updates**
 1. The entire process includes 2 restarts into the recovery partition and should take around 5-15 minutes.
 1. Wireless mode may not work for all older devices.
 
@@ -134,3 +134,4 @@ Submit PRs and open issues!
 [#3]: https://github.com/ben-z/free-sidecar/issues/3
 [#22]: https://github.com/ben-z/free-sidecar/issues/22
 [#28]: https://github.com/ben-z/free-sidecar/issues/28
+[#59]: https://github.com/ben-z/free-sidecar/issues/59
