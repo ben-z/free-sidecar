@@ -4,7 +4,7 @@
 [![](https://img.shields.io/badge/macOS->=10.15%20Catalina-brightgreen)](#)
 [![](https://img.shields.io/badge/iPadOS->=13-brightgreen)](#)
 
-Unlocks [Sidecar](https://support.apple.com/en-ca/HT210380) for older, unsupported iPads and Macs (supports all iPads running iPadOS and Macs running macOS Catalina or newer **(There is a known issue in macOS Catalina 10.15.4 that breaks self-signed `SidecarCore` files. Please do not use free-sidecar on macOS Catalina 10.15.4 at this time. Check [#59] for updates)**).
+Unlocks [Sidecar](https://support.apple.com/en-ca/HT210380) for older, unsupported iPads and Macs (supports all iPads running iPadOS and Macs running macOS Catalina or newer).
 
 [Download the lastest version](https://github.com/ben-z/free-sidecar/releases/latest/download/free-sidecar.zip)
 
@@ -16,7 +16,8 @@ Unlocks [Sidecar](https://support.apple.com/en-ca/HT210380) for older, unsupport
 1. Apple uses a simple "blacklist" on macOS to disable iPadOS 13/macOS Catalina devices from using Sidecar. To work around this, we simply need to edit the blacklist in `/System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore` (can be done with any hex editor of your choice).
 1. This app is a UI for editing `SidecarCore`.
 1. This app is sandboxed and does NOT need root access. I've left everything that needs root access for you to execute in the Terminal.
-1. This app works on all versions of iPadOS and macOS Catalina, including upcoming releases (assuming Apple doesn't change how they blacklist devices—in which case this app will be a no-op). **Breaking: macOS Catalina 10.15.4 breaks self-signed `SidecarCore` files. Please do not use free-sidecar on macOS Catalina 10.15.4 at this time. Check [#59] for updates**
+1. This app works on all versions of iPadOS and macOS Catalina, including upcoming releases (assuming Apple doesn't change how they blacklist devices—in which case this app will be a no-op).
+1. **macOS Catalina 10.15.4 introduced a change that broke self-signed frameworks, which we are using. If you are on 10.15.4+, you need to go through one extra step (added as a substep under step 8 below).**
 1. The entire process includes 2 restarts into the recovery partition and should take around 5-15 minutes.
 1. Wireless mode may not work for all older devices.
 
@@ -65,12 +66,13 @@ sudo cp ~/Downloads/SidecarCore /System/Library/PrivateFrameworks/SidecarCore.fr
 8. Sign the patched SidecarCore (in Terminal):
     * If you see an error in this step, make sure you have xcode command-line tools installed (`xcode-select --install`, see [#3]) or updated (through App Store, see [#2]).
     * Don't restart your computer until you complete this step properly (or revert the backup file)! Many people have run into issues with this ([#28], [#22]).
+    * **macOS Catalina 10.15.4+ users: [Add `amfi_get_out_of_my_way=0x1` to NVRAM boot flags](https://github.com/ben-z/free-sidecar/issues/59#issuecomment-603953953), then skip step 9.**
 
 ```
 sudo codesign -f -s - /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore
 ```
 
-9. (Optional, but recommended) Reboot Into Recovery, re-enable System Integrity Protection:
+9. (Optional, but recommended **(but [not recommended][#59] for macOS Catalina 10.15.4)**) Reboot Into Recovery, re-enable System Integrity Protection:
 
 ```
 csrutil enable
