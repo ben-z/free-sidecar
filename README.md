@@ -98,6 +98,8 @@ csrutil enable
 
     Make sure you have the latest Xcode comandline tools! See issues [#2] and [#3].
 
+1. On Macs without touch bar, the `Use F1, F2, etc. keys as standard function keys` preference may be replaced. See [#61] and [#56] for solutions. 
+
 1. General questions to consider before opening an issue:
     1. Did you try wired mode?
     1. Does your device show up in Finder's sidebar?
@@ -135,3 +137,6 @@ Submit PRs and open issues!
 [#22]: https://github.com/ben-z/free-sidecar/issues/22
 [#28]: https://github.com/ben-z/free-sidecar/issues/28
 [#59]: https://github.com/ben-z/free-sidecar/issues/59
+[#56]: https://github.com/ben-z/free-sidecar/issues/56
+[#61]: https://github.com/ben-z/free-sidecar/issues/61
+
