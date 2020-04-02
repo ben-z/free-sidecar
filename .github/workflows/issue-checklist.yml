@@ -1,6 +1,8 @@
 name: pr-checklist
 
-on: [pull_request]
+on:
+  issues:
+    types: [opened]
 
 jobs:
   respond:
