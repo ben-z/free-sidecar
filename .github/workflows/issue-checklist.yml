@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: ben-z/actions-comment-on-issue@1.0.1
+    - uses: ben-z/actions-comment-on-issue@1.0.2
       with:
-        message: "Did you go through all of the troubleshooting steps outlined in README.md?\nDid you describe what you've tried in the PR description?"
+        message: "Gentle reminder:\n* Did you go through all of the troubleshooting steps outlined in README.md?\n* Did you describe your devices (model+version) and what you've tried in the PR description?"
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
