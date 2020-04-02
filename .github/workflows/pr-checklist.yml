@@ -1,0 +1,13 @@
+name: pr-checklist
+
+on: [pull_request]
+
+jobs:
+  respond:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: thollander/actions-comment-pull-request@1.0.0
+      with:
+        message: "Did you go through all of the troubleshooting steps outlined in README.md?\nDid you describe what you've tried in the PR description?"
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
