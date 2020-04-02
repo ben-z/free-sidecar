@@ -1,4 +1,4 @@
-name: pr-checklist
+name: issue-checklist
 
 on:
   issues:
