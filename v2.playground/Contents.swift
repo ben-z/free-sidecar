@@ -34,7 +34,7 @@ func readToEOF(pipe: Pipe) -> String {
 func getXcodeCLTPath() -> String? {
     let task = Process()
     let outputPipe = Pipe()
-    
+
     task.executableURL = URL(fileURLWithPath: "/usr/bin/xcode-select")
     task.arguments = ["--print-path"]
     task.standardOutput = outputPipe
@@ -58,7 +58,7 @@ func makeGetPackageInfoTask(pkgId: String) -> (Process, Pipe, Pipe) {
     let task = Process()
     let outputPipe = Pipe()
     let errorPipe = Pipe()
-    
+
     task.executableURL = URL(fileURLWithPath: "/usr/sbin/pkgutil")
     task.arguments = ["--pkg-info=" + pkgId]
     task.standardOutput = outputPipe
@@ -67,50 +67,127 @@ func makeGetPackageInfoTask(pkgId: String) -> (Process, Pipe, Pipe) {
     return (task, outputPipe, errorPipe)
 }
 
-func makeGrepTask(pattern: String) -> (Process, Pipe, Pipe) {
-    let task = Process()
-    let outputPipe = Pipe()
-    let errorPipe = Pipe()
-
-    task.executableURL = URL(fileURLWithPath: "/usr/bin/grep")
-    task.arguments = [pattern]
-    task.standardOutput = outputPipe
-    task.standardError = errorPipe
-
-    return (task, outputPipe, errorPipe)
-}
-
 func getXcodeCLTVersion() -> String? {
-    let (getPkgInfoTask, getPkgInfoTaskOut, getPkgInfoTaskErr) = makeGetPackageInfoTask(pkgId: "com.apple.pkg.Xcode")
-    let (grepTask, grepTaskOut, grepTaskErr) = makeGrepTask(pattern: "version")
-
-    grepTask.standardInput = getPkgInfoTaskOut
+    let (xcTask, xcOut, xcErr) = makeGetPackageInfoTask(pkgId: "com.apple.pkg.Xcode")
+    let (cltTask, cltOut, cltErr) = makeGetPackageInfoTask(pkgId: "com.apple.pkg.CLTools_Executables")
 
     do {
-        try getPkgInfoTask.run()
-        try grepTask.run()
+        try xcTask.run()
+        try cltTask.run()
     } catch {
         return nil
     }
 
-    getPkgInfoTask.waitUntilExit()
-    grepTask.waitUntilExit()
+    xcTask.waitUntilExit()
+    cltTask.waitUntilExit()
 
-    getPkgInfoTask.terminationStatus
-    grepTask.terminationStatus
+    let outPipe: Pipe
 
-    if getPkgInfoTask.terminationStatus != 0 || grepTask.terminationStatus != 0 {
-        print(readToEOF(pipe: getPkgInfoTaskErr))
-        print(readToEOF(pipe: grepTaskErr))
+    switch (xcTask.terminationStatus, cltTask.terminationStatus) {
+    case (0, _):
+        outPipe = xcOut
+    case (_, 0):
+        outPipe = cltOut
+    default:
+        print("No Xcode CLT version info:")
+        print(readToEOF(pipe: xcErr))
+        print(readToEOF(pipe: cltErr))
         return nil
     }
 
-    return readToEOF(pipe: grepTaskOut).trimmingCharacters(in: .whitespacesAndNewlines)
+    let output = readToEOF(pipe: outPipe)
+    if let versionRange = output.range(of: #"version: (\d+\.)+(\d)+"#, options: .regularExpression) {
+        let lowerBound = output.index(versionRange.lowerBound, offsetBy: "version: ".count)
+        return String(output[lowerBound..<versionRange.upperBound])
+    } else {
+        return nil
+    }
 }
 
+if let xcodeCLTPath = getXcodeCLTPath(), let xcodeCLTVersion = getXcodeCLTVersion() {
+    if xcodeCLTVersion.compare("11.4", options: .numeric) != .orderedAscending {
+        print("Xcode Command Line Tools is up-to-date")
+    } else {
+        print("Xcode Command Line Tools is out-of-date")
+    }
+} else {
+    print("Xcode Command Line Tools is not installed")
+}
 
-let xcodeCLTPath = getXcodeCLTPath()
-let xcodeCLTVersion = getXcodeCLTVersion()
+func isSIPDisabled() -> Bool? {
+    let task = Process()
+    let outputPipe = Pipe()
+
+    task.executableURL = URL(fileURLWithPath: "/usr/bin/csrutil")
+    task.arguments = ["status"]
+    task.standardOutput = outputPipe
+
+    do {
+        try task.run()
+    } catch {
+        // task launched unsuccessfully
+        return nil
+    }
+
+    task.waitUntilExit()
+    if task.terminationStatus != 0 {
+        return nil
+    }
+
+    let output = readToEOF(pipe: outputPipe)
+    if let range = output.range(of: #"enabled|disabled"#, options: .regularExpression) {
+        return output[range.lowerBound..<range.upperBound] == "disabled"
+    } else {
+        return nil
+    }
+}
+
+switch isSIPDisabled() {
+case true:
+    print("SIP is disabled")
+case false:
+    print("SIP is enabled")
+default:
+    print("Error checking SIP status")
+}
+
+func hasAppleSignature(filePath: String) -> Bool? {
+    let task = Process()
+    let outputPipe = Pipe()
+
+    task.executableURL = URL(fileURLWithPath: "/usr/bin/codesign")
+    task.arguments = ["-dv", "--verbose=4", filePath]
+    // codesign uses stderr for its output
+    task.standardError = outputPipe
+
+    do {
+        try task.run()
+    } catch {
+        // task launched unsuccessfully
+        return nil
+    }
+
+    task.waitUntilExit()
+    if task.terminationStatus != 0 {
+        return nil
+    }
+
+    let output = readToEOF(pipe: outputPipe)
+    return output.contains("Authority=Software Signing")
+        && output.contains("Authority=Apple Code Signing Certification Authority")
+        && output.contains("Authority=Apple Root CA")
+}
+
+switch hasAppleSignature(filePath: "/System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore") {
+case true:
+    print("SidecarCore is unmodified")
+case false:
+    print("SidecarCore is modified")
+    // TODO: Check if the modification is free-sidecar-compatible
+default:
+    print("Error checking the integrity of SidecarCore")
+}
+
 
 //struct SomeError: Error {}
 //let promise = Promise<String>(on: .main) { fulfill, reject in
