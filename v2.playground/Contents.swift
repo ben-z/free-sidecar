@@ -26,6 +26,11 @@ let systemVersion = SystemVersion()
 
 let systemModel = Sysctl.model
 
+func readToEOF(pipe: Pipe) -> String {
+    let data = pipe.fileHandleForReading.readDataToEndOfFile();
+    return String(decoding: data, as: UTF8.self)
+}
+
 func getXcodeCLTPath() -> String? {
     let task = Process()
     let outputPipe = Pipe()
@@ -46,50 +51,84 @@ func getXcodeCLTPath() -> String? {
         return nil
     }
 
-    let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
-    return String(decoding: outputData, as: UTF8.self).trimmingCharacters(in: .whitespacesAndNewlines)
+    return readToEOF(pipe: outputPipe).trimmingCharacters(in: .whitespacesAndNewlines)
 }
 
-func getPackageInfo(pkgId: String) -> Pipe? {
+func makeGetPackageInfoTask(pkgId: String) -> (Process, Pipe, Pipe) {
     let task = Process()
     let outputPipe = Pipe()
+    let errorPipe = Pipe()
     
     task.executableURL = URL(fileURLWithPath: "/usr/sbin/pkgutil")
     task.arguments = ["--pkg-info=" + pkgId]
     task.standardOutput = outputPipe
+    task.standardError = errorPipe
+
+    return (task, outputPipe, errorPipe)
+}
+
+func makeGrepTask(pattern: String) -> (Process, Pipe, Pipe) {
+    let task = Process()
+    let outputPipe = Pipe()
+    let errorPipe = Pipe()
+
+    task.executableURL = URL(fileURLWithPath: "/usr/bin/grep")
+    task.arguments = [pattern]
+    task.standardOutput = outputPipe
+    task.standardError = errorPipe
+
+    return (task, outputPipe, errorPipe)
+}
+
+func getXcodeCLTVersion() -> String? {
+    let (getPkgInfoTask, getPkgInfoTaskOut, getPkgInfoTaskErr) = makeGetPackageInfoTask(pkgId: "com.apple.pkg.Xcode")
+    let (grepTask, grepTaskOut, grepTaskErr) = makeGrepTask(pattern: "version")
+
+    grepTask.standardInput = getPkgInfoTaskOut
+
     do {
-        try task.run()
-        return outputPipe
+        try getPkgInfoTask.run()
+        try grepTask.run()
     } catch {
         return nil
     }
+
+    getPkgInfoTask.waitUntilExit()
+    grepTask.waitUntilExit()
+
+    getPkgInfoTask.terminationStatus
+    grepTask.terminationStatus
+
+    if getPkgInfoTask.terminationStatus != 0 || grepTask.terminationStatus != 0 {
+        print(readToEOF(pipe: getPkgInfoTaskErr))
+        print(readToEOF(pipe: grepTaskErr))
+        return nil
+    }
+
+    return readToEOF(pipe: grepTaskOut).trimmingCharacters(in: .whitespacesAndNewlines)
 }
 
-//func getXcodeCLTVersion() -> String? {
-//    let pkgInfo = getPackageInfo(pkgId: "com.apple.pkg.CLTools_Executables") ?? getPackageInfo(pkgId: "com.apple.pkg.Xcode")
-//}
-
-struct SomeError: Error {}
 
 let xcodeCLTPath = getXcodeCLTPath()
-//let xcodeCLTVersion = getXcodeCLTVersion()
+let xcodeCLTVersion = getXcodeCLTVersion()
 
-let promise = Promise<String>(on: .main) { fulfill, reject in
-  // Called asynchronously on the dispatch queue specified.
-  if true {
-    // Resolve with a value.
-    fulfill("Hello world.")
-  } else {
-    // Resolve with an error.
-    reject(SomeError())
-  }
-}
-
-do {
-    try await(promise)
-} catch {
-    print("caught error: \(error)")
-}
+//struct SomeError: Error {}
+//let promise = Promise<String>(on: .main) { fulfill, reject in
+//  // Called asynchronously on the dispatch queue specified.
+//  if true {
+//    // Resolve with a value.
+//    fulfill("Hello world.")
+//  } else {
+//    // Resolve with an error.
+//    reject(SomeError())
+//  }
+//}
+//
+//do {
+//    try await(promise)
+//} catch {
+//    print("caught error: \(error)")
+//}
 
 // Conclusion from below: task.run() throws not when the process exit code is nonzero, but when the task
 //   configuration is faulty
