@@ -18,6 +18,9 @@
 		B54B52922365100B00FF9CE3 /* free_sidecarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B52912365100B00FF9CE3 /* free_sidecarTests.swift */; };
 		B54B529D2365100B00FF9CE3 /* free_sidecarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B529C2365100B00FF9CE3 /* free_sidecarUITests.swift */; };
 		B54B52AB2365122D00FF9CE3 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B52AA2365122D00FF9CE3 /* utils.swift */; };
+		B57DC8C124452E5B009E03EF /* free_sidecar_xpc.m in Sources */ = {isa = PBXBuildFile; fileRef = B57DC8C024452E5B009E03EF /* free_sidecar_xpc.m */; };
+		B57DC8C324452E5B009E03EF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B57DC8C224452E5B009E03EF /* main.m */; };
+		B57DC8C724452E5C009E03EF /* free-sidecar-xpc.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = B57DC8BC24452E5B009E03EF /* free-sidecar-xpc.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B5A9BCB92444B82200265279 /* compatibility in Resources */ = {isa = PBXBuildFile; fileRef = B5A9BCB82444B82200265279 /* compatibility */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +39,28 @@
 			remoteGlobalIDString = B54B52772365100A00FF9CE3;
 			remoteInfo = "free-sidecar";
 		};
+		B57DC8C524452E5C009E03EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B54B52702365100A00FF9CE3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B57DC8BB24452E5B009E03EF;
+			remoteInfo = "free-sidecar-xpc";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B57DC8CB24452E5C009E03EF /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				B57DC8C724452E5C009E03EF /* free-sidecar-xpc.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		35CDA59DD1461D9053BAF6D9 /* Pods_free_sidecar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_free_sidecar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +85,12 @@
 		B54B529C2365100B00FF9CE3 /* free_sidecarUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = free_sidecarUITests.swift; sourceTree = "<group>"; };
 		B54B529E2365100B00FF9CE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B54B52AA2365122D00FF9CE3 /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
+		B57DC8BC24452E5B009E03EF /* free-sidecar-xpc.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = "free-sidecar-xpc.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B57DC8BE24452E5B009E03EF /* free_sidecar_xpcProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = free_sidecar_xpcProtocol.h; sourceTree = "<group>"; };
+		B57DC8BF24452E5B009E03EF /* free_sidecar_xpc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = free_sidecar_xpc.h; sourceTree = "<group>"; };
+		B57DC8C024452E5B009E03EF /* free_sidecar_xpc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = free_sidecar_xpc.m; sourceTree = "<group>"; };
+		B57DC8C224452E5B009E03EF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B57DC8C424452E5B009E03EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5A9BCB82444B82200265279 /* compatibility */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = compatibility; path = assets/compatibility; sourceTree = SOURCE_ROOT; };
 		B5AC7B70244427F900E6E4EF /* v2.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = v2.playground; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BE1E5FFE457A5DA3221A108A /* Pods-free-sidecarUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-free-sidecarUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-free-sidecarUITests/Pods-free-sidecarUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -89,6 +119,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E3D326A5EC889923809FC6D /* Pods_free_sidecarUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B57DC8B924452E5B009E03EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +161,7 @@
 				B54B527A2365100A00FF9CE3 /* free-sidecar */,
 				B54B52902365100B00FF9CE3 /* free-sidecarTests */,
 				B54B529B2365100B00FF9CE3 /* free-sidecarUITests */,
+				B57DC8BD24452E5B009E03EF /* free-sidecar-xpc */,
 				B54B52792365100A00FF9CE3 /* Products */,
 				3A5DFD295BBBF668333C288D /* Pods */,
 				40C74B8866B29AB55D99E062 /* Frameworks */,
@@ -136,6 +174,7 @@
 				B54B52782365100A00FF9CE3 /* free-sidecar.app */,
 				B54B528D2365100B00FF9CE3 /* free-sidecarTests.xctest */,
 				B54B52982365100B00FF9CE3 /* free-sidecarUITests.xctest */,
+				B57DC8BC24452E5B009E03EF /* free-sidecar-xpc.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -183,6 +222,18 @@
 			path = "free-sidecarUITests";
 			sourceTree = "<group>";
 		};
+		B57DC8BD24452E5B009E03EF /* free-sidecar-xpc */ = {
+			isa = PBXGroup;
+			children = (
+				B57DC8BE24452E5B009E03EF /* free_sidecar_xpcProtocol.h */,
+				B57DC8BF24452E5B009E03EF /* free_sidecar_xpc.h */,
+				B57DC8C024452E5B009E03EF /* free_sidecar_xpc.m */,
+				B57DC8C224452E5B009E03EF /* main.m */,
+				B57DC8C424452E5B009E03EF /* Info.plist */,
+			);
+			path = "free-sidecar-xpc";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -195,10 +246,12 @@
 				B54B52752365100A00FF9CE3 /* Frameworks */,
 				B54B52762365100A00FF9CE3 /* Resources */,
 				AAD42BAFA24ED892ACF33A1D /* [CP] Embed Pods Frameworks */,
+				B57DC8CB24452E5C009E03EF /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B57DC8C624452E5C009E03EF /* PBXTargetDependency */,
 			);
 			name = "free-sidecar";
 			productName = "free-sidecar";
@@ -243,6 +296,23 @@
 			productReference = B54B52982365100B00FF9CE3 /* free-sidecarUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		B57DC8BB24452E5B009E03EF /* free-sidecar-xpc */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B57DC8C824452E5C009E03EF /* Build configuration list for PBXNativeTarget "free-sidecar-xpc" */;
+			buildPhases = (
+				B57DC8B824452E5B009E03EF /* Sources */,
+				B57DC8B924452E5B009E03EF /* Frameworks */,
+				B57DC8BA24452E5B009E03EF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "free-sidecar-xpc";
+			productName = "free-sidecar-xpc";
+			productReference = B57DC8BC24452E5B009E03EF /* free-sidecar-xpc.xpc */;
+			productType = "com.apple.product-type.xpc-service";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -264,6 +334,9 @@
 						CreatedOnToolsVersion = 11.1;
 						TestTargetID = B54B52772365100A00FF9CE3;
 					};
+					B57DC8BB24452E5B009E03EF = {
+						CreatedOnToolsVersion = 11.4;
+					};
 				};
 			};
 			buildConfigurationList = B54B52732365100A00FF9CE3 /* Build configuration list for PBXProject "free-sidecar" */;
@@ -282,6 +355,7 @@
 				B54B52772365100A00FF9CE3 /* free-sidecar */,
 				B54B528C2365100B00FF9CE3 /* free-sidecarTests */,
 				B54B52972365100B00FF9CE3 /* free-sidecarUITests */,
+				B57DC8BB24452E5B009E03EF /* free-sidecar-xpc */,
 			);
 		};
 /* End PBXProject section */
@@ -306,6 +380,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		B54B52962365100B00FF9CE3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B57DC8BA24452E5B009E03EF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -415,6 +496,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B57DC8B824452E5B009E03EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B57DC8C324452E5B009E03EF /* main.m in Sources */,
+				B57DC8C124452E5B009E03EF /* free_sidecar_xpc.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -427,6 +517,11 @@
 			isa = PBXTargetDependency;
 			target = B54B52772365100A00FF9CE3 /* free-sidecar */;
 			targetProxy = B54B52992365100B00FF9CE3 /* PBXContainerItemProxy */;
+		};
+		B57DC8C624452E5C009E03EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B57DC8BB24452E5B009E03EF /* free-sidecar-xpc */;
+			targetProxy = B57DC8C524452E5C009E03EF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -561,10 +656,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "free-sidecar/free_sidecar.entitlements";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"free-sidecar/Preview Content\"";
+				DEVELOPMENT_TEAM = PFCMT7RS6E;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "free-sidecar/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -584,7 +680,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "free-sidecar/free_sidecar.entitlements";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"free-sidecar/Preview Content\"";
@@ -686,6 +782,36 @@
 			};
 			name = Release;
 		};
+		B57DC8C924452E5C009E03EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = PFCMT7RS6E;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "free-sidecar-xpc/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "ben-z.free-sidecar-xpc";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B57DC8CA24452E5C009E03EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = PFCMT7RS6E;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "free-sidecar-xpc/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "ben-z.free-sidecar-xpc";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -721,6 +847,15 @@
 			buildConfigurations = (
 				B54B52A82365100B00FF9CE3 /* Debug */,
 				B54B52A92365100B00FF9CE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B57DC8C824452E5C009E03EF /* Build configuration list for PBXNativeTarget "free-sidecar-xpc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B57DC8C924452E5C009E03EF /* Debug */,
+				B57DC8CA24452E5C009E03EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

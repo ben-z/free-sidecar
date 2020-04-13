@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>free-sidecar-xpc.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>free-sidecar.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
