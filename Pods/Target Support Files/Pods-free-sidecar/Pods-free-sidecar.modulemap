@@ -1,0 +1,6 @@
+framework module Pods_free_sidecar {
+  umbrella header "Pods-free-sidecar-umbrella.h"
+
+  export *
+  module * { export * }
+}
