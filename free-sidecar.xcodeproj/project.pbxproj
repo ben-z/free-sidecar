@@ -18,6 +18,7 @@
 		B54B52922365100B00FF9CE3 /* free_sidecarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B52912365100B00FF9CE3 /* free_sidecarTests.swift */; };
 		B54B529D2365100B00FF9CE3 /* free_sidecarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B529C2365100B00FF9CE3 /* free_sidecarUITests.swift */; };
 		B54B52AB2365122D00FF9CE3 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B52AA2365122D00FF9CE3 /* utils.swift */; };
+		B5A9BCB92444B82200265279 /* compatibility in Resources */ = {isa = PBXBuildFile; fileRef = B5A9BCB82444B82200265279 /* compatibility */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		B54B529C2365100B00FF9CE3 /* free_sidecarUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = free_sidecarUITests.swift; sourceTree = "<group>"; };
 		B54B529E2365100B00FF9CE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B54B52AA2365122D00FF9CE3 /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
+		B5A9BCB82444B82200265279 /* compatibility */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = compatibility; path = assets/compatibility; sourceTree = SOURCE_ROOT; };
 		B5AC7B70244427F900E6E4EF /* v2.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = v2.playground; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BE1E5FFE457A5DA3221A108A /* Pods-free-sidecarUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-free-sidecarUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-free-sidecarUITests/Pods-free-sidecarUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		FFB2858B480CF019F87F589D /* Pods-free-sidecarTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-free-sidecarTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-free-sidecarTests/Pods-free-sidecarTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				B54B52882365100B00FF9CE3 /* free_sidecar.entitlements */,
 				B54B52812365100B00FF9CE3 /* Preview Content */,
 				B54B52AA2365122D00FF9CE3 /* utils.swift */,
+				B5A9BCB82444B82200265279 /* compatibility */,
 			);
 			path = "free-sidecar";
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				B54B52862365100B00FF9CE3 /* Main.storyboard in Resources */,
 				B54B52832365100B00FF9CE3 /* Preview Assets.xcassets in Resources */,
 				B54B52802365100B00FF9CE3 /* Assets.xcassets in Resources */,
+				B5A9BCB92444B82200265279 /* compatibility in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

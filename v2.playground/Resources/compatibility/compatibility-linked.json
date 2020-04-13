@@ -1,0 +1,5 @@
+{
+    "syntaxes": [
+        { "syntax": "compatv1", "path": "compatibility.json" }
+    ]
+}

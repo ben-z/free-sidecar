@@ -1,0 +1,6 @@
+{
+    "syntax": "compatv1",
+    "Mac": [
+        { "model": "MacBookPro15,2", "macOS": { "major": 10, "minor": 15, "patch": 4, "build": "19E266" }, "status": "worksWithNote", "note": "Need to keep SIP disabled" }
+    ]
+}

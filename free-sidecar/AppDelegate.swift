@@ -28,6 +28,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.setFrameAutosaveName("Main Window")
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
+
+//        print(Bundle.main.url(forResource: "compatibility", withExtension: "json", subdirectory: "compatibility"))
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
