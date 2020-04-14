@@ -11,7 +11,7 @@
 import Foundation
 import os.log
 
-let log = OSLog(subsystem: (Bundle.main.bundleIdentifier ?? "bundle") + ".app", category: "default")
+let log = OSLog(subsystem: (Bundle.main.bundleIdentifier ?? "bundle") + ".service", category: "default")
 
 let delegate = FreeSidecarXPCDelegate()
 let listener = NSXPCListener.service()
