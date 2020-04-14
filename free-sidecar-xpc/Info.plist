@@ -24,6 +24,8 @@
 	<string>Copyright © 2020 Ben Zhang. All rights reserved.</string>
 	<key>XPCService</key>
 	<dict>
+		<key>JoinExistingSession</key>
+		<true/>
 		<key>ServiceType</key>
 		<string>Application</string>
 	</dict>

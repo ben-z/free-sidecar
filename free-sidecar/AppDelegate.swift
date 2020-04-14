@@ -16,6 +16,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        xpcUpperCaseString("abc") { response in
+            print("Response from XPC service:", response)
+        }
+        
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView()
 
