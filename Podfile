@@ -2,8 +2,7 @@
 # platform :ios, '9.0'
 
 target 'free-sidecar' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
+  use_modular_headers!
 
   platform :osx, '10.15'
 
@@ -21,4 +20,8 @@ target 'free-sidecar' do
     # Pods for testing
   end
 
+  target 'free-sidecar-xpc' do
+    inherit! :search_paths
+    # Pods for XPC
+  end
 end

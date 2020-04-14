@@ -1,4 +1,4 @@
-framework module FBLPromises {
+module FBLPromises {
   umbrella header "PromisesObjC-umbrella.h"
 
   export *

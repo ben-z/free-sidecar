@@ -1,4 +1,4 @@
-framework module Promises {
+module Promises {
   umbrella header "PromisesSwift-umbrella.h"
 
   export *
