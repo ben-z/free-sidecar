@@ -18,41 +18,60 @@ func connectToXPCService() -> Promise<NSXPCConnection> {
     struct S {
         static var xpcServiceConnection: NSXPCConnection?
     }
-
-    return Promise<NSXPCConnection> { fulfill, reject in
-        if S.xpcServiceConnection == nil {
-            S.xpcServiceConnection = NSXPCConnection(serviceName: "ben-z.free-sidecar-xpc")
-        }
-
-        guard let conn = S.xpcServiceConnection else {
-            reject(XPCUnavailableError())
-            return
-        }
-
+    
+    let promise = Promise<NSXPCConnection>.pending()
+    
+    if let conn = S.xpcServiceConnection { // cached
+        promise.fulfill(conn)
+    } else {
+        let conn = NSXPCConnection(serviceName: XPC_BUNDLE_ID)
+        S.xpcServiceConnection = conn
+        
         conn.remoteObjectInterface = NSXPCInterface(with: FreeSidecarXPCProtocol.self)
         conn.invalidationHandler = { () -> Void in
             conn.invalidationHandler = nil
             os_log(.debug, log: log, "XPC connection invalidated")
-            OperationQueue.main.addOperation {
-                S.xpcServiceConnection = nil
-            }
+            S.xpcServiceConnection = nil
         }
 
         conn.resume()
 
-        fulfill(conn)
+        promise.fulfill(conn)
     }
+    
+    return promise
 }
 
 func xpcUpperCaseString(_ string: String) -> Promise<String> {
-    return Promise<String> { fulfill, reject in
-        connectToXPCService().then { conn in
-            guard let service = conn.remoteObjectProxyWithErrorHandler(reject) as? FreeSidecarXPCProtocol else {
-                reject(XPCUnavailableError())
-                return
-            }
-
-            service.upperCaseString(string, withReply: fulfill)
-        }.catch(reject)
+    let promise = Promise<String>.pending()
+    
+    if let conn = try? await(connectToXPCService()),
+        let service = conn.remoteObjectProxyWithErrorHandler(promise.reject) as? FreeSidecarXPCProtocol {
+        
+        service.upperCaseString(string, withReply: promise.fulfill)
+    } else {
+        promise.reject(XPCUnavailableError())
     }
+    
+    return promise
+}
+
+func xpcInstallHelper() -> Promise<Void> {
+    let promise = Promise<Void>.pending()
+    
+    if let conn = try? await(connectToXPCService()),
+        let service = conn.remoteObjectProxyWithErrorHandler(promise.reject) as? FreeSidecarXPCProtocol {
+        
+        service.installHelper {
+            if let error = $0 {
+                promise.reject(error)
+            } else {
+                promise.fulfill(())
+            }
+        }
+    } else {
+        promise.reject(XPCUnavailableError())
+    }
+    
+    return promise
 }

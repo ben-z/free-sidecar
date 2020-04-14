@@ -5,11 +5,11 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>free-sidecar-xpc</string>
+	<string>free-sidecar-helper</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>ben-z.free-sidecar-xpc</string>
+	<string>ben-z.free-sidecar-helper</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -20,19 +20,13 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020 Ben Zhang. All rights reserved.</string>
-	<key>SMPrivilegedExecutables</key>
-	<dict>
-		<key>ben-z.free-sidecar-helper</key>
-		<string>identifier &quot;ben-z.free-sidecar-helper&quot; and anchor apple generic and certificate leaf[subject.CN] = &quot;Apple Development: benzhangniu@gmail.com (C65K9596DP)&quot; and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
-	</dict>
-	<key>XPCService</key>
-	<dict>
-		<key>JoinExistingSession</key>
-		<true/>
-		<key>ServiceType</key>
-		<string>Application</string>
-	</dict>
+	<key>SMAuthorizedClients</key>
+	<array>
+		<string>identifier &quot;ben-z.free-sidecar-xpc&quot; and anchor apple generic and certificate leaf[subject.CN] = &quot;Apple Development: benzhangniu@gmail.com (C65K9596DP)&quot; and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+	</array>
 </dict>
 </plist>

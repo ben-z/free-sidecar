@@ -9,6 +9,7 @@
 import Cocoa
 import SwiftUI
 import os.log
+import free_sidecar_xpc
 
 let log = OSLog(subsystem: (Bundle.main.bundleIdentifier ?? "bundle") + ".app", category: "default")
 
@@ -23,6 +24,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             os_log("Response from XPC service: %{public}s", log: log, response)
         }.catch { error in
             os_log(.error, log: log, "XPC Error: %{public}s", error.localizedDescription)
+        }
+        
+        xpcInstallHelper().then {_ in
+            os_log(.info, log: log, "Successfully installed helper")
+        }.catch { error in
+            os_log(.error, log: log, "An error occured when installing helper: %s", error.localizedDescription)
         }
         
         // Create the SwiftUI view that provides the window contents.

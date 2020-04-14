@@ -7,7 +7,22 @@
 //
 
 import Foundation
+import ServiceManagement
+
+@objc public class XPCError: NSObject, Error {
+    public enum ErrorType {
+        case unknownError
+        case authUnavailable
+    }
+    
+    public let type: ErrorType
+    
+    public init(_ type: ErrorType) {
+        self.type = type
+    }
+}
 
 @objc public protocol FreeSidecarXPCProtocol {
     func upperCaseString(_ string: String, withReply reply: @escaping (String) -> Void)
+    func installHelper(withReply reply: @escaping (Error?) -> Void)
 }

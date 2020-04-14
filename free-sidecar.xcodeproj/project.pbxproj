@@ -18,12 +18,20 @@
 		B54B52922365100B00FF9CE3 /* free_sidecarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B52912365100B00FF9CE3 /* free_sidecarTests.swift */; };
 		B54B529D2365100B00FF9CE3 /* free_sidecarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B529C2365100B00FF9CE3 /* free_sidecarUITests.swift */; };
 		B54B52AB2365122D00FF9CE3 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B52AA2365122D00FF9CE3 /* utils.swift */; };
-		B57DC8C124452E5B009E03EF /* FreeSidecarXPCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DC8C024452E5B009E03EF /* FreeSidecarXPCDelegate.swift */; };
+		B552C75D2445845100BC1368 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C75C2445845100BC1368 /* main.swift */; };
+		B552C766244589B400BC1368 /* ben-z.free-sidecar-helper in CopyFiles */ = {isa = PBXBuildFile; fileRef = B552C75A2445845100BC1368 /* ben-z.free-sidecar-helper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		B552C77F2446104100BC1368 /* AuthorizationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C76A2445964300BC1368 /* AuthorizationUtils.swift */; };
+		B552C7802446104200BC1368 /* AuthorizationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C76A2445964300BC1368 /* AuthorizationUtils.swift */; };
+		B552C782244613B700BC1368 /* SynchronizationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C781244613B700BC1368 /* SynchronizationUtils.swift */; };
+		B552C783244613B700BC1368 /* SynchronizationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C781244613B700BC1368 /* SynchronizationUtils.swift */; };
+		B552C785244620D900BC1368 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C784244620D900BC1368 /* constants.swift */; };
+		B552C786244620D900BC1368 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C784244620D900BC1368 /* constants.swift */; };
+		B552C787244620D900BC1368 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C784244620D900BC1368 /* constants.swift */; };
+		B57DC8C124452E5B009E03EF /* FreeSidecarXPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DC8C024452E5B009E03EF /* FreeSidecarXPC.swift */; };
 		B57DC8C324452E5B009E03EF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DC8C224452E5B009E03EF /* main.swift */; };
 		B57DC8C724452E5C009E03EF /* free-sidecar-xpc.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = B57DC8BC24452E5B009E03EF /* free-sidecar-xpc.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B57DC8CD244539BE009E03EF /* xpc-utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DC8CC244539BE009E03EF /* xpc-utils.swift */; };
 		B57DC8CE24453C81009E03EF /* FreeSidecarXPCProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DC8BE24452E5B009E03EF /* FreeSidecarXPCProtocol.swift */; };
-		B57DC8CF24453C81009E03EF /* FreeSidecarXPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DC8BF24452E5B009E03EF /* FreeSidecarXPC.swift */; };
 		B5A9BCB92444B82200265279 /* compatibility in Resources */ = {isa = PBXBuildFile; fileRef = B5A9BCB82444B82200265279 /* compatibility */; };
 		B670AD4E6F0D8ADEEA30E002 /* libPods-free-sidecar-xpc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69229243AF76F3C9273623C9 /* libPods-free-sidecar-xpc.a */; };
 /* End PBXBuildFile section */
@@ -43,6 +51,13 @@
 			remoteGlobalIDString = B54B52772365100A00FF9CE3;
 			remoteInfo = "free-sidecar";
 		};
+		B552C7622445867200BC1368 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B54B52702365100A00FF9CE3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B552C7592445845100BC1368;
+			remoteInfo = "free-sidecar-helper";
+		};
 		B57DC8C524452E5C009E03EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B54B52702365100A00FF9CE3 /* Project object */;
@@ -53,6 +68,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		B552C7582445845100BC1368 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		B552C764244586A800BC1368 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LaunchServices;
+			dstSubfolderSpec = 1;
+			files = (
+				B552C766244589B400BC1368 /* ben-z.free-sidecar-helper in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B57DC8CB24452E5C009E03EF /* Embed XPC Services */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -89,10 +123,17 @@
 		B54B529C2365100B00FF9CE3 /* free_sidecarUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = free_sidecarUITests.swift; sourceTree = "<group>"; };
 		B54B529E2365100B00FF9CE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B54B52AA2365122D00FF9CE3 /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
+		B552C75A2445845100BC1368 /* ben-z.free-sidecar-helper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ben-z.free-sidecar-helper"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B552C75C2445845100BC1368 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		B552C7612445851F00BC1368 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B552C76924458FD800BC1368 /* Launchd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Launchd.plist; sourceTree = "<group>"; };
+		B552C76A2445964300BC1368 /* AuthorizationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationUtils.swift; sourceTree = "<group>"; };
+		B552C781244613B700BC1368 /* SynchronizationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizationUtils.swift; sourceTree = "<group>"; usesTabs = 0; wrapsLines = 0; };
+		B552C784244620D900BC1368 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
+		B552C78C2446751F00BC1368 /* ben-z.free-sidecar-helper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "ben-z.free-sidecar-helper.entitlements"; sourceTree = "<group>"; };
 		B57DC8BC24452E5B009E03EF /* free-sidecar-xpc.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = "free-sidecar-xpc.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57DC8BE24452E5B009E03EF /* FreeSidecarXPCProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeSidecarXPCProtocol.swift; sourceTree = "<group>"; };
-		B57DC8BF24452E5B009E03EF /* FreeSidecarXPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeSidecarXPC.swift; sourceTree = "<group>"; };
-		B57DC8C024452E5B009E03EF /* FreeSidecarXPCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeSidecarXPCDelegate.swift; sourceTree = "<group>"; };
+		B57DC8C024452E5B009E03EF /* FreeSidecarXPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeSidecarXPC.swift; sourceTree = "<group>"; };
 		B57DC8C224452E5B009E03EF /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		B57DC8C424452E5B009E03EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B57DC8CC244539BE009E03EF /* xpc-utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "xpc-utils.swift"; sourceTree = "<group>"; };
@@ -127,6 +168,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				98FD20FC2DF95DB855E09BE9 /* libPods-free-sidecarUITests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B552C7572445845100BC1368 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,10 +218,12 @@
 		B54B526F2365100A00FF9CE3 = {
 			isa = PBXGroup;
 			children = (
+				B552C77E2446103800BC1368 /* common */,
 				B54B527A2365100A00FF9CE3 /* free-sidecar */,
 				B54B52902365100B00FF9CE3 /* free-sidecarTests */,
 				B54B529B2365100B00FF9CE3 /* free-sidecarUITests */,
 				B57DC8BD24452E5B009E03EF /* free-sidecar-xpc */,
+				B552C75B2445845100BC1368 /* free-sidecar-helper */,
 				B54B52792365100A00FF9CE3 /* Products */,
 				3A5DFD295BBBF668333C288D /* Pods */,
 				40C74B8866B29AB55D99E062 /* Frameworks */,
@@ -187,6 +237,7 @@
 				B54B528D2365100B00FF9CE3 /* free-sidecarTests.xctest */,
 				B54B52982365100B00FF9CE3 /* free-sidecarUITests.xctest */,
 				B57DC8BC24452E5B009E03EF /* free-sidecar-xpc.xpc */,
+				B552C75A2445845100BC1368 /* ben-z.free-sidecar-helper */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -235,12 +286,32 @@
 			path = "free-sidecarUITests";
 			sourceTree = "<group>";
 		};
+		B552C75B2445845100BC1368 /* free-sidecar-helper */ = {
+			isa = PBXGroup;
+			children = (
+				B552C78C2446751F00BC1368 /* ben-z.free-sidecar-helper.entitlements */,
+				B552C75C2445845100BC1368 /* main.swift */,
+				B552C7612445851F00BC1368 /* Info.plist */,
+				B552C76924458FD800BC1368 /* Launchd.plist */,
+			);
+			path = "free-sidecar-helper";
+			sourceTree = "<group>";
+		};
+		B552C77E2446103800BC1368 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				B552C76A2445964300BC1368 /* AuthorizationUtils.swift */,
+				B552C781244613B700BC1368 /* SynchronizationUtils.swift */,
+				B552C784244620D900BC1368 /* constants.swift */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
 		B57DC8BD24452E5B009E03EF /* free-sidecar-xpc */ = {
 			isa = PBXGroup;
 			children = (
 				B57DC8BE24452E5B009E03EF /* FreeSidecarXPCProtocol.swift */,
-				B57DC8BF24452E5B009E03EF /* FreeSidecarXPC.swift */,
-				B57DC8C024452E5B009E03EF /* FreeSidecarXPCDelegate.swift */,
+				B57DC8C024452E5B009E03EF /* FreeSidecarXPC.swift */,
 				B57DC8C224452E5B009E03EF /* main.swift */,
 				B57DC8C424452E5B009E03EF /* Info.plist */,
 			);
@@ -308,6 +379,23 @@
 			productReference = B54B52982365100B00FF9CE3 /* free-sidecarUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		B552C7592445845100BC1368 /* free-sidecar-helper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B552C7602445845100BC1368 /* Build configuration list for PBXNativeTarget "free-sidecar-helper" */;
+			buildPhases = (
+				B552C7562445845100BC1368 /* Sources */,
+				B552C7572445845100BC1368 /* Frameworks */,
+				B552C7582445845100BC1368 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "free-sidecar-helper";
+			productName = "free-sidecar-helper";
+			productReference = B552C75A2445845100BC1368 /* ben-z.free-sidecar-helper */;
+			productType = "com.apple.product-type.tool";
+		};
 		B57DC8BB24452E5B009E03EF /* free-sidecar-xpc */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B57DC8C824452E5C009E03EF /* Build configuration list for PBXNativeTarget "free-sidecar-xpc" */;
@@ -316,10 +404,12 @@
 				B57DC8B824452E5B009E03EF /* Sources */,
 				B57DC8B924452E5B009E03EF /* Frameworks */,
 				B57DC8BA24452E5B009E03EF /* Resources */,
+				B552C764244586A800BC1368 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B552C7632445867200BC1368 /* PBXTargetDependency */,
 			);
 			name = "free-sidecar-xpc";
 			productName = "free-sidecar-xpc";
@@ -332,7 +422,7 @@
 		B54B52702365100A00FF9CE3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1110;
+				LastSwiftUpdateCheck = 1140;
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Ben Zhang";
 				TargetAttributes = {
@@ -346,6 +436,9 @@
 					B54B52972365100B00FF9CE3 = {
 						CreatedOnToolsVersion = 11.1;
 						TestTargetID = B54B52772365100A00FF9CE3;
+					};
+					B552C7592445845100BC1368 = {
+						CreatedOnToolsVersion = 11.4;
 					};
 					B57DC8BB24452E5B009E03EF = {
 						CreatedOnToolsVersion = 11.4;
@@ -369,6 +462,7 @@
 				B54B528C2365100B00FF9CE3 /* free-sidecarTests */,
 				B54B52972365100B00FF9CE3 /* free-sidecarUITests */,
 				B57DC8BB24452E5B009E03EF /* free-sidecar-xpc */,
+				B552C7592445845100BC1368 /* free-sidecar-helper */,
 			);
 		};
 /* End PBXProject section */
@@ -494,7 +588,10 @@
 			files = (
 				B54B52AB2365122D00FF9CE3 /* utils.swift in Sources */,
 				B54B527E2365100A00FF9CE3 /* ContentView.swift in Sources */,
+				B552C782244613B700BC1368 /* SynchronizationUtils.swift in Sources */,
+				B552C785244620D900BC1368 /* constants.swift in Sources */,
 				B54B527C2365100A00FF9CE3 /* AppDelegate.swift in Sources */,
+				B552C7802446104200BC1368 /* AuthorizationUtils.swift in Sources */,
 				B57DC8CD244539BE009E03EF /* xpc-utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -515,14 +612,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B552C7562445845100BC1368 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B552C75D2445845100BC1368 /* main.swift in Sources */,
+				B552C787244620D900BC1368 /* constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B57DC8B824452E5B009E03EF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				B57DC8C324452E5B009E03EF /* main.swift in Sources */,
 				B57DC8CE24453C81009E03EF /* FreeSidecarXPCProtocol.swift in Sources */,
-				B57DC8CF24453C81009E03EF /* FreeSidecarXPC.swift in Sources */,
-				B57DC8C124452E5B009E03EF /* FreeSidecarXPCDelegate.swift in Sources */,
+				B552C783244613B700BC1368 /* SynchronizationUtils.swift in Sources */,
+				B552C77F2446104100BC1368 /* AuthorizationUtils.swift in Sources */,
+				B57DC8C124452E5B009E03EF /* FreeSidecarXPC.swift in Sources */,
+				B552C786244620D900BC1368 /* constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +646,11 @@
 			isa = PBXTargetDependency;
 			target = B54B52772365100A00FF9CE3 /* free-sidecar */;
 			targetProxy = B54B52992365100B00FF9CE3 /* PBXContainerItemProxy */;
+		};
+		B552C7632445867200BC1368 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B552C7592445845100BC1368 /* free-sidecar-helper */;
+			targetProxy = B552C7622445867200BC1368 /* PBXContainerItemProxy */;
 		};
 		B57DC8C624452E5C009E03EF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -805,6 +918,56 @@
 			};
 			name = Release;
 		};
+		B552C75E2445845100BC1368 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "free-sidecar-helper/ben-z.free-sidecar-helper.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PFCMT7RS6E;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/free-sidecar-helper/Info.plist";
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"$(SRCROOT)/free-sidecar-helper/Info.plist",
+					"-sectcreate",
+					__TEXT,
+					__launchd_plist,
+					"$(SRCROOT)/free-sidecar-helper/Launchd.plist",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ben-z.free-sidecar-helper";
+				PRODUCT_NAME = "$(PRODUCT_BUNDLE_IDENTIFIER)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B552C75F2445845100BC1368 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "free-sidecar-helper/ben-z.free-sidecar-helper.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PFCMT7RS6E;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/free-sidecar-helper/Info.plist";
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"$(SRCROOT)/free-sidecar-helper/Info.plist",
+					"-sectcreate",
+					__TEXT,
+					__launchd_plist,
+					"$(SRCROOT)/free-sidecar-helper/Launchd.plist",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ben-z.free-sidecar-helper";
+				PRODUCT_NAME = "$(PRODUCT_BUNDLE_IDENTIFIER)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		B57DC8C924452E5C009E03EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6D41BF75194D0E9B7B3B4913 /* Pods-free-sidecar-xpc.debug.xcconfig */;
@@ -876,6 +1039,15 @@
 			buildConfigurations = (
 				B54B52A82365100B00FF9CE3 /* Debug */,
 				B54B52A92365100B00FF9CE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B552C7602445845100BC1368 /* Build configuration list for PBXNativeTarget "free-sidecar-helper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B552C75E2445845100BC1368 /* Debug */,
+				B552C75F2445845100BC1368 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
