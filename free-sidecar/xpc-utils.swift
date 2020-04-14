@@ -8,33 +8,50 @@
 
 import Foundation
 import free_sidecar_xpc
+import Promises
 
-private var xpcServiceConnection: NSXPCConnection?
 
-func connectToXPCService() -> Bool {
-    if xpcServiceConnection == nil {
-        xpcServiceConnection = NSXPCConnection(serviceName: "ben-z.free-sidecar-xpc")
-        xpcServiceConnection?.remoteObjectInterface = NSXPCInterface(with: FreeSidecarXPCProtocol.self)
-        xpcServiceConnection?.invalidationHandler = { () -> Void in
-            xpcServiceConnection?.invalidationHandler = nil
+struct XPCUnavailableError: Error {}
+
+func connectToXPCService() -> Promise<NSXPCConnection> {
+    struct S {
+        static var xpcServiceConnection: NSXPCConnection?
+    }
+
+    return Promise<NSXPCConnection> { fulfill, reject in
+        if S.xpcServiceConnection == nil {
+            S.xpcServiceConnection = NSXPCConnection(serviceName: "ben-z.free-sidecar-xpc")
+        }
+
+        guard let conn = S.xpcServiceConnection else {
+            reject(XPCUnavailableError())
+            return
+        }
+
+        conn.remoteObjectInterface = NSXPCInterface(with: FreeSidecarXPCProtocol.self)
+        conn.invalidationHandler = { () -> Void in
+            conn.invalidationHandler = nil
             print("XPC connection invalidated")
             OperationQueue.main.addOperation {
-                xpcServiceConnection = nil
+                S.xpcServiceConnection = nil
             }
         }
-        
-        xpcServiceConnection?.resume()
+
+        conn.resume()
+
+        fulfill(conn)
     }
-    
-    return xpcServiceConnection != nil
 }
 
-func xpcUpperCaseString(_ string: String, withReply reply: @escaping (String) -> Void) {
-    guard connectToXPCService() else {
-        return
+func xpcUpperCaseString(_ string: String) -> Promise<String> {
+    return Promise<String> { fulfill, reject in
+        connectToXPCService().then { conn in
+            guard let service = conn.remoteObjectProxyWithErrorHandler(reject) as? FreeSidecarXPCProtocol else {
+                reject(XPCUnavailableError())
+                return
+            }
+
+            service.upperCaseString(string, withReply: fulfill)
+        }.catch(reject)
     }
-    let service = xpcServiceConnection?.remoteObjectProxyWithErrorHandler { error in
-        print("Received error:", error)
-    } as? FreeSidecarXPCProtocol
-    service?.upperCaseString(string, withReply: reply)
 }
