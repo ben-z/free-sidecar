@@ -8,8 +8,6 @@
 
 import Foundation
 
-public let XPCbundleIdentifier = "1232123"
-
 @objc public protocol FreeSidecarXPCProtocol {
     func upperCaseString(_ string: String, withReply reply: @escaping (String) -> Void)
 }
