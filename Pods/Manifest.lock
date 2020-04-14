@@ -7,7 +7,7 @@ DEPENDENCIES:
   - PromisesSwift
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - PromisesObjC
     - PromisesSwift
 
@@ -15,6 +15,6 @@ SPEC CHECKSUMS:
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   PromisesSwift: 37bad6f4daddb02f7c9c531efe91e8b21c13ee2f
 
-PODFILE CHECKSUM: 07fc80087e3c2e2e4e686574525eb7ed586832ee
+PODFILE CHECKSUM: 0dbfcc59616fc0283e3b2e05f52986d7af4a7b96
 
 COCOAPODS: 1.9.1
