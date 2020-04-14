@@ -9,6 +9,7 @@
 import Foundation
 import free_sidecar_xpc
 import Promises
+import os.log
 
 
 struct XPCUnavailableError: Error {}
@@ -31,7 +32,7 @@ func connectToXPCService() -> Promise<NSXPCConnection> {
         conn.remoteObjectInterface = NSXPCInterface(with: FreeSidecarXPCProtocol.self)
         conn.invalidationHandler = { () -> Void in
             conn.invalidationHandler = nil
-            print("XPC connection invalidated")
+            os_log(.debug, log: log, "XPC connection invalidated")
             OperationQueue.main.addOperation {
                 S.xpcServiceConnection = nil
             }

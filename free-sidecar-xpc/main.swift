@@ -9,6 +9,9 @@
 //    https://matthewminer.com/2018/08/25/creating-an-xpc-service-in-swift.html
 
 import Foundation
+import os.log
+
+let log = OSLog(subsystem: (Bundle.main.bundleIdentifier ?? "bundle") + ".app", category: "default")
 
 let delegate = FreeSidecarXPCDelegate()
 let listener = NSXPCListener.service()

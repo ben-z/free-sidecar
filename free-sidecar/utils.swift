@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 // https://qiita.com/fromage-blanc/items/15731a1d3e6be1c5f56f
 extension UnicodeScalar {
@@ -126,7 +127,7 @@ func dostuff2(sidecarCore: URL) -> [Model] {
             return Model(hex: hex, str: str, type: type, model: model, modelHex: modelHex, modelHexRange: modelHexRange, version: version, enabled: enabled)
         })
         
-        print("matched: \(models.count)")
+        os_log(.debug, log: log, "Found %d models in the selected file", models.count)
         
         return models
     }
@@ -153,7 +154,7 @@ func patch(model: Model, sidecarCore: URL) -> Bool {
             try replacementData.write(to: sidecarCore)
             return true
         } catch {
-            print(error.localizedDescription)
+            os_log(.error, log: log, "%{public}s", error.localizedDescription)
             return false
         }
     }
@@ -181,7 +182,7 @@ func unpatch(model: Model, sidecarCore: URL) -> Bool {
             try replacementData.write(to: sidecarCore)
             return true
         } catch {
-            print(error.localizedDescription)
+            os_log(.error, log: log, "%{public}s", error.localizedDescription)
             return false
         }
     }

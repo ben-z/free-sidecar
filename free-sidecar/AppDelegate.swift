@@ -8,6 +8,9 @@
 
 import Cocoa
 import SwiftUI
+import os.log
+
+let log = OSLog(subsystem: (Bundle.main.bundleIdentifier ?? "bundle") + ".app", category: "default")
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -17,9 +20,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         xpcUpperCaseString("abc").then { response in
-            print("Response from XPC service:", response)
+            os_log("Response from XPC service: %{public}s", log: log, response)
         }.catch { error in
-            print("XPC Error", error)
+            os_log(.error, log: log, "XPC Error: %{public}s", error.localizedDescription)
         }
         
         // Create the SwiftUI view that provides the window contents.

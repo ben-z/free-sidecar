@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import os.log
 
 struct ModelButtonStyle: ButtonStyle {
     let isEnabled: Bool
@@ -47,7 +48,7 @@ struct ContentView: View {
                         .font(.title)
                     Button(action: {
                         if NSWorkspace.shared.open(URL(string: "https://github.com/ben-z/free-sidecar")!) {
-                            print("default browser was successfully opened")
+                            os_log(.debug, log: log, "Default browser was successfully opened")
 
                         }
                     }) {
@@ -97,11 +98,13 @@ struct ContentView: View {
                     if (selectedURL != nil) {
                         List(models, id: \.hex) { model in
                             Button(action: {
-                                print("Clicked \(model.str)!")
+                                os_log(.debug, log: log, "Clicked %{public}s!", model.str)
                                 if (model.enabled) {
-                                    print("Un-patching successful? \(unpatch(model: model, sidecarCore: self.selectedURL!))")
+                                    let unpatched = unpatch(model: model, sidecarCore: self.selectedURL!)
+                                    os_log(.debug, log: log, "Un-patching successful? %{public}s", String(unpatched))
                                 } else {
-                                    print("Patching successful? \(patch(model: model, sidecarCore: self.selectedURL!))")
+                                    let patched = patch(model: model, sidecarCore: self.selectedURL!)
+                                    os_log(.debug, log: log, "Patching successful? %{public}s", String(patched))
                                 }
                                 self.models = dostuff2(sidecarCore: self.selectedURL!)
                             }) {

@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import os.log
 
 class FreeSidecarXPC: NSObject, FreeSidecarXPCProtocol {
     func upperCaseString(_ string: String, withReply reply: @escaping (String) -> Void) {
-        print("upperCaseString is called")
+        os_log(.debug, log: log, "upperCaseString is called")
         let response = string.uppercased()
         reply(response)
     }
