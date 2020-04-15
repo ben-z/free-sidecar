@@ -651,7 +651,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\nset -x\n# ================================================== info.plist prefix generator ==================================================\necho \"#define __HELPER_BUILD_NUMBER__ $CURRENT_PROJECT_VERSION\" >> $INFO_PLIST_HEADER_PATH\n\n";
+			shellScript = "set +e\nset -x\n# ================================================== info.plist prefix generator ==================================================\n# Re\ngrep -q \"^#define __HELPER_BUILD_NUMBER__\" $INFO_PLIST_HEADER_PATH && sed -i.bak \"s/^#define __HELPER_BUILD_NUMBER__ .*/#define __HELPER_BUILD_NUMBER__ $CURRENT_PROJECT_VERSION/\" $INFO_PLIST_HEADER_PATH\n[ $? -ne 0 ] && echo \"#define __HELPER_BUILD_NUMBER__ $CURRENT_PROJECT_VERSION\" >> $INFO_PLIST_HEADER_PATH\nexit 0\n";
 		};
 		DBD6D1D022588E3BF8B4E5C0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
