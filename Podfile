@@ -2,13 +2,11 @@
 # platform :ios, '9.0'
 
 target 'free-sidecar' do
-  use_modular_headers!
-
-  platform :osx, '10.15'
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
 
   # Pods for free-sidecar
   pod 'PromisesSwift'
-
 
   target 'free-sidecarTests' do
     inherit! :search_paths
@@ -16,12 +14,23 @@ target 'free-sidecar' do
   end
 
   target 'free-sidecarUITests' do
-    inherit! :search_paths
     # Pods for testing
   end
 
-  target 'free-sidecar-xpc' do
-    inherit! :search_paths
-    # Pods for XPC
-  end
+end
+
+target 'free-sidecar-xpc' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for free-sidecar-xpc
+  pod 'PromisesSwift'
+
+end
+
+target 'free-sidecar-helper' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for free-sidecar-helper
 end

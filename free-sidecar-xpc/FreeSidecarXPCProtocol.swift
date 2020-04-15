@@ -1,5 +1,5 @@
 //
-//  free_sidecar_xpcProtocol.h
+//  FreeSidecarXPCProtocol.swift
 //  free-sidecar-xpc
 //
 //  Created by Ben Zhang on 2020-04-13.
@@ -9,7 +9,7 @@
 import Foundation
 import ServiceManagement
 
-@objc public class XPCError: NSObject, Error {
+@objc public class XPCServiceError: NSObject, Error {
     public enum ErrorType {
         case unknownError
         case authUnavailable

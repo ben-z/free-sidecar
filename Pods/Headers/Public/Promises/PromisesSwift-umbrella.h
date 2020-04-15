@@ -1,1 +1,0 @@
-../../../Target Support Files/PromisesSwift/PromisesSwift-umbrella.h

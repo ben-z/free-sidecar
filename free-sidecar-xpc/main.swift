@@ -1,5 +1,5 @@
 //
-//  main.m
+//  main.swift
 //  free-sidecar-xpc
 //
 //  Created by Ben Zhang on 2020-04-13.
@@ -10,6 +10,7 @@
 
 import Foundation
 import os.log
+import Promises
 
 let log = OSLog(subsystem: (Bundle.main.bundleIdentifier ?? "bundle") + ".service", category: "default")
 

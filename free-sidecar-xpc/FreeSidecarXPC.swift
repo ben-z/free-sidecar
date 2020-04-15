@@ -1,5 +1,5 @@
 //
-//  free_sidecar_xpc.m
+//  FreeSidecarXPC.swift
 //  free-sidecar-xpc
 //
 //  Created by Ben Zhang on 2020-04-13.
@@ -9,10 +9,12 @@
 import Foundation
 import os.log
 import ServiceManagement
+import free_sidecar_helper
 
 class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCProtocol {
     private let service = NSXPCListener.service()
     private let authorization: Authorization? = try? Authorization()
+    private var helperToolConnection: NSXPCConnection?
     
     override init() {
         super.init()
@@ -49,7 +51,7 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
 
     func installHelper(withReply reply: @escaping (Error?) -> Void) {
         guard let auth = authorization else {
-            reply(XPCError(.authUnavailable))
+            reply(XPCServiceError(.authUnavailable))
             return
         }
 
@@ -57,7 +59,7 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
             try auth.authorizeRights(rights: [kSMRightBlessPrivilegedHelper], flags: [.interactionAllowed, .extendRights, .preAuthorize])
         } catch {
             os_log(.error, log: log, "Authorization error: %s", error.localizedDescription)
-            reply(XPCError(.authUnavailable))
+            reply(XPCServiceError(.authUnavailable))
             return
         }
 
@@ -68,7 +70,21 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
         } else if let err = cfErr?.takeRetainedValue() {
             reply(err)
         } else {
-            reply(XPCError(.unknownError))
+            reply(XPCServiceError(.unknownError))
         }
+    }
+
+    func getHelperToolConnection(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void) {
+        if self.helperToolConnection == nil {
+            self.helperToolConnection = NSXPCConnection(machServiceName: HELPER_BUNDLE_ID, options: .privileged)
+            self.helperToolConnection?.remoteObjectInterface = NSXPCInterface(with: FreeSidecarHelperProtocol.self)
+            self.helperToolConnection?.invalidationHandler = { () -> Void in
+                self.helperToolConnection?.invalidationHandler = nil
+                os_log(.debug, log: log, "Helper connection invalidated")
+                self.helperToolConnection = nil
+            }
+        }
+
+        self.helperToolConnection?.resume()
     }
 }

@@ -86,3 +86,5 @@ if let str = lsVarDbSudo() {
 }
 
 os_log(.debug, log: log, "Done")
+
+FreeSidecarHelperDelegate().run()

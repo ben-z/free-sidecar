@@ -1,6 +1,6 @@
 //
 //  constants.swift
-//  free-sidecar
+//  common
 //
 //  Created by Ben Zhang on 2020-04-14.
 //  Copyright © 2020 Ben Zhang. All rights reserved.
