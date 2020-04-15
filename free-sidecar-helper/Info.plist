@@ -20,17 +20,17 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>HelperBundleID</key>
+	<string>$(HELPER_BUNDLE_ID)</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020 Ben Zhang. All rights reserved.</string>
 	<key>SMAuthorizedClients</key>
 	<array>
-		<string>identifier &quot;$(XPC_BUNDLE_ID)&quot; and anchor apple generic and certificate leaf[subject.CN] = &quot;Apple Development: benzhangniu@gmail.com (C65K9596DP)&quot; and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		<string>identifier "$(XPC_BUNDLE_ID)" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: benzhangniu@gmail.com (C65K9596DP)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 	</array>
 	<key>XPCBundleID</key>
 	<string>$(XPC_BUNDLE_ID)</string>
-	<key>HelperBundleID</key>
-	<string>$(HELPER_BUNDLE_ID)</string>
 </dict>
 </plist>

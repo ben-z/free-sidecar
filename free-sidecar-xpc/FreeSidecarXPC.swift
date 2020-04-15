@@ -56,9 +56,6 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
     }
 
     func installHelper(withReply reply: @escaping (Error?) -> Void) {
-
-        getHelperToolConnection {_ in }
-
         guard let auth = authorization else {
             reply(XPCServiceError(.authUnavailable))
             return
@@ -80,6 +77,18 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
             reply(err)
         } else {
             reply(XPCServiceError(.unknownError))
+        }
+    }
+
+    func updateHelper(withReply reply: @escaping (Error?) -> Void) {
+        xpcGetBuildNumber().then {
+            if let buildNumber = $0, buildNumber == HELPER_BUILD_NUMBER {
+                os_log(.debug, log: log, "Helper is up-to-date: %{public}s.", buildNumber)
+                reply(nil)
+            } else {
+                os_log(.debug, log: log, "Helper version mismatch: expecting %{public}s, got %{public}s. Reinstalling helper.", HELPER_BUILD_NUMBER, $0 ?? "nil")
+                self.installHelper(withReply: reply)
+            }
         }
     }
 

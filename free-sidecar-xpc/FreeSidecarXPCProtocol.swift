@@ -26,4 +26,5 @@ import ServiceManagement
     func upperCaseString(_ string: String, withReply reply: @escaping (String) -> Void)
     func upperCaseAndJoinStrings(_ string1: String, _ string2: String, withReply reply: @escaping (String) -> Void)
     func installHelper(withReply reply: @escaping (Error?) -> Void)
+    func updateHelper(withReply reply: @escaping (Error?) -> Void)
 }

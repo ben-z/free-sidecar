@@ -31,3 +31,13 @@ func xpcInstallHelper() -> Promise<Void> {
     }
 }
 
+func xpcUpdateHelper() -> Promise<Void> {
+    xpcClient.call({ $0.updateHelper }).then {
+        if let error = $0 {
+            return Promise<Void> { throw error }
+        } else {
+            return Promise<Void> { resolve, reject in resolve(()) }
+        }
+    }
+}
+
