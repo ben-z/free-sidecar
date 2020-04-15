@@ -27,7 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         xpcUpdateHelper().then {_ in
-            os_log(.info, log: log, "Successfully installed helper")
+            os_log(.info, log: log, "Successfully updated helper")
         }.catch { error in
             os_log(.error, log: log, "An error occured when installing helper: %s", error.localizedDescription)
         }

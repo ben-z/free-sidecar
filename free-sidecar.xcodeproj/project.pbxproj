@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -409,11 +409,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B552C7602445845100BC1368 /* Build configuration list for PBXNativeTarget "free-sidecar-helper" */;
 			buildPhases = (
-				B5C44FB82447B338007EB1BD /* ShellScript */,
 				138B4647CBCB65DA9838AF5B /* [CP] Check Pods Manifest.lock */,
 				B552C7562445845100BC1368 /* Sources */,
 				B552C7572445845100BC1368 /* Frameworks */,
 				B552C7582445845100BC1368 /* CopyFiles */,
+				B5C44FB82447B338007EB1BD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -428,6 +428,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B57DC8C824452E5C009E03EF /* Build configuration list for PBXNativeTarget "free-sidecar-xpc" */;
 			buildPhases = (
+				B5FC3B482447CCA600FA4C24 /* ShellScript */,
 				00A244A4BDBE162532491843 /* [CP] Check Pods Manifest.lock */,
 				B57DC8B824452E5B009E03EF /* Sources */,
 				B57DC8B924452E5B009E03EF /* Frameworks */,
@@ -648,10 +649,29 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(INFO_PLIST_HEADER_PATH)",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set +e\nset -x\n# ================================================== info.plist prefix generator ==================================================\n# Re\ngrep -q \"^#define __HELPER_BUILD_NUMBER__\" $INFO_PLIST_HEADER_PATH && sed -i.bak \"s/^#define __HELPER_BUILD_NUMBER__ .*/#define __HELPER_BUILD_NUMBER__ $CURRENT_PROJECT_VERSION/\" $INFO_PLIST_HEADER_PATH\n[ $? -ne 0 ] && echo \"#define __HELPER_BUILD_NUMBER__ $CURRENT_PROJECT_VERSION\" >> $INFO_PLIST_HEADER_PATH\nexit 0\n";
+			shellScript = "set +e\nset -x\n# ================================================== info.plist prefix generator ==================================================\ngrep -q \"^#define __HELPER_BUILD_NUMBER__\" $INFO_PLIST_HEADER_PATH && sed -i.bak \"s/^#define __HELPER_BUILD_NUMBER__ .*/#define __HELPER_BUILD_NUMBER__ $CURRENT_PROJECT_VERSION/\" $INFO_PLIST_HEADER_PATH\n[ $? -ne 0 ] && echo \"#define __HELPER_BUILD_NUMBER__ $CURRENT_PROJECT_VERSION\" >> $INFO_PLIST_HEADER_PATH\nexit 0\n";
+		};
+		B5FC3B482447CCA600FA4C24 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			dependencyFile = "$(BUILD_ROOT)/info-plist-preprocess-guard.d";
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -x\n# Force rebuild info.plist\ntouch ${PROJECT_DIR}/${INFOPLIST_FILE}\n\n# Don't run this script if the headers haven't changed\necho \"all :$INFO_PLIST_HEADER_PATH\" > $BUILD_ROOT/info-plist-preprocess-guard.d\n";
 		};
 		DBD6D1D022588E3BF8B4E5C0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1053,7 +1073,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "free-sidecar-helper/ben-z.free-sidecar-helper.entitlements";
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 7;
 				EXECUTABLE_PREFIX = "$(PRODUCT_BUNDLE_IDENTIFIER:base).";
 				INFOPLIST_FILE = "free-sidecar-helper/Info.plist";
 				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
@@ -1090,7 +1110,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "free-sidecar-helper/ben-z.free-sidecar-helper.entitlements";
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 7;
 				EXECUTABLE_PREFIX = "$(PRODUCT_BUNDLE_IDENTIFIER:base).";
 				INFOPLIST_FILE = "free-sidecar-helper/Info.plist";
 				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
