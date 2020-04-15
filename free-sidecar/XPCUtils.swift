@@ -11,14 +11,18 @@ import free_sidecar_xpc
 import Promises
 import os.log
 
-private let xpcClient = XPCClient(serviceName: XPC_BUNDLE_ID, protocol: FreeSidecarXPCProtocol.self)
+private let xpcClient = XPCClient<FreeSidecarXPCProtocol>(serviceName: XPC_BUNDLE_ID, toProtocol: { $0 })
 
 func xpcUpperCaseString(_ string: String) -> Promise<String> {
-    xpcClient.call { service, reply in (service as? FreeSidecarXPCProtocol)?.upperCaseString(string, withReply: reply) }
+    xpcClient.call({ $0.upperCaseString }, string)
+}
+
+func xpcUpperCaseAndJoinStrings(_ string1: String, _ string2: String) -> Promise<String> {
+    xpcClient.call({ $0.upperCaseAndJoinStrings }, string1, string2)
 }
 
 func xpcInstallHelper() -> Promise<Void> {
-    xpcClient.call { service, reply in (service as? FreeSidecarXPCProtocol)?.installHelper(withReply: reply) }.then {
+    xpcClient.call({ $0.installHelper }).then {
         if let error = $0 {
             return Promise<Void> { throw error }
         } else {

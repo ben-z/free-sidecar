@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>ben-z.free-sidecar-xpc</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -17,16 +17,20 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020 Ben Zhang. All rights reserved.</string>
 	<key>SMPrivilegedExecutables</key>
 	<dict>
-		<key>ben-z.free-sidecar-helper</key>
-		<string>identifier &quot;ben-z.free-sidecar-helper&quot; and anchor apple generic and certificate leaf[subject.CN] = &quot;Apple Development: benzhangniu@gmail.com (C65K9596DP)&quot; and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		<key>__HELPER_BUNDLE_ID__</key>
+		<string>identifier &quot;$(HELPER_BUNDLE_ID)&quot; and anchor apple generic and certificate leaf[subject.CN] = &quot;Apple Development: benzhangniu@gmail.com (C65K9596DP)&quot; and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 	</dict>
+	<key>HelperBundleID</key>
+	<string>$(HELPER_BUNDLE_ID)</string>
+	<key>XPCBundleID</key>
+	<string>$(XPC_BUNDLE_ID)</string>
 	<key>XPCService</key>
 	<dict>
 		<key>JoinExistingSession</key>

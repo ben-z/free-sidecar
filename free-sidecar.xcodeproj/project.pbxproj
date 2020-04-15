@@ -20,7 +20,6 @@
 		B54B529D2365100B00FF9CE3 /* free_sidecarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B529C2365100B00FF9CE3 /* free_sidecarUITests.swift */; };
 		B54B52AB2365122D00FF9CE3 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B52AA2365122D00FF9CE3 /* utils.swift */; };
 		B552C75D2445845100BC1368 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C75C2445845100BC1368 /* main.swift */; };
-		B552C766244589B400BC1368 /* ben-z.free-sidecar-helper in CopyFiles */ = {isa = PBXBuildFile; fileRef = B552C75A2445845100BC1368 /* ben-z.free-sidecar-helper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B552C77F2446104100BC1368 /* AuthorizationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C76A2445964300BC1368 /* AuthorizationUtils.swift */; };
 		B552C7802446104200BC1368 /* AuthorizationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C76A2445964300BC1368 /* AuthorizationUtils.swift */; };
 		B552C782244613B700BC1368 /* SynchronizationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C781244613B700BC1368 /* SynchronizationUtils.swift */; };
@@ -35,6 +34,7 @@
 		B5A9BCB92444B82200265279 /* compatibility in Resources */ = {isa = PBXBuildFile; fileRef = B5A9BCB82444B82200265279 /* compatibility */; };
 		B5B869862446939F00628886 /* FreeSidecarHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B869852446939F00628886 /* FreeSidecarHelperProtocol.swift */; };
 		B5B86988244693D700628886 /* FreeSidecarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B86987244693D700628886 /* FreeSidecarHelper.swift */; };
+		B5C44FB524477654007EB1BD /* ben-z.free-sidecar-helper in CopyFiles */ = {isa = PBXBuildFile; fileRef = B552C75A2445845100BC1368 /* ben-z.free-sidecar-helper */; };
 		B5DBC4DE2446A3E50023FADA /* XPCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBC4DD2446A3E50023FADA /* XPCClient.swift */; };
 		B5DBC4DF2446A3E50023FADA /* XPCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBC4DD2446A3E50023FADA /* XPCClient.swift */; };
 		B5DBC4E12446A4E80023FADA /* XPCUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DBC4E02446A4E80023FADA /* XPCUtils.swift */; };
@@ -89,7 +89,7 @@
 			dstPath = Contents/Library/LaunchServices;
 			dstSubfolderSpec = 1;
 			files = (
-				B552C766244589B400BC1368 /* ben-z.free-sidecar-helper in CopyFiles */,
+				B5C44FB524477654007EB1BD /* ben-z.free-sidecar-helper in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -800,8 +800,12 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = PFCMT7RS6E;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -818,6 +822,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HELPER_BUNDLE_ID = "ben-z.free-sidecar-helper";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -825,6 +830,7 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				XPC_BUNDLE_ID = "ben-z.free-sidecar-xpc";
 			};
 			name = Debug;
 		};
@@ -860,8 +866,12 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = PFCMT7RS6E;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -872,12 +882,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HELPER_BUNDLE_ID = "ben-z.free-sidecar-helper";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				XPC_BUNDLE_ID = "ben-z.free-sidecar-xpc";
 			};
 			name = Release;
 		};
@@ -887,12 +899,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "free-sidecar/free_sidecar.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"free-sidecar/Preview Content\"";
-				DEVELOPMENT_TEAM = PFCMT7RS6E;
-				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "free-sidecar/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -912,12 +920,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "free-sidecar/free_sidecar.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"free-sidecar/Preview Content\"";
-				DEVELOPMENT_TEAM = PFCMT7RS6E;
-				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "free-sidecar/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -939,6 +943,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = "free-sidecarTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -961,6 +966,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = "free-sidecarTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -982,6 +988,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = "free-sidecarUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1002,6 +1009,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = "free-sidecarUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1020,11 +1028,11 @@
 			baseConfigurationReference = 60DA2FF73968CE3560CF756E /* Pods-free-sidecar-helper.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "free-sidecar-helper/ben-z.free-sidecar-helper.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = PFCMT7RS6E;
-				ENABLE_HARDENED_RUNTIME = YES;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				EXECUTABLE_PREFIX = "$(PRODUCT_BUNDLE_IDENTIFIER:base).";
 				INFOPLIST_FILE = "free-sidecar-helper/Info.plist";
+				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"'@executable_path/../Frameworks'",
@@ -1037,19 +1045,16 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesSwift\"",
 				);
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					"$(SRCROOT)/free-sidecar-helper/Info.plist",
 					"-sectcreate",
 					__TEXT,
 					__launchd_plist,
 					"$(SRCROOT)/free-sidecar-helper/Launchd.plist",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ben-z.free-sidecar-helper";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(HELPER_BUNDLE_ID)";
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(PRODUCT_BUNDLE_IDENTIFIER)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -1060,11 +1065,11 @@
 			baseConfigurationReference = 35283CCFF6F98451C0161AEE /* Pods-free-sidecar-helper.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "free-sidecar-helper/ben-z.free-sidecar-helper.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = PFCMT7RS6E;
-				ENABLE_HARDENED_RUNTIME = YES;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				EXECUTABLE_PREFIX = "$(PRODUCT_BUNDLE_IDENTIFIER:base).";
 				INFOPLIST_FILE = "free-sidecar-helper/Info.plist";
+				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"'@executable_path/../Frameworks'",
@@ -1077,19 +1082,16 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesSwift\"",
 				);
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					"$(SRCROOT)/free-sidecar-helper/Info.plist",
 					"-sectcreate",
 					__TEXT,
 					__launchd_plist,
 					"$(SRCROOT)/free-sidecar-helper/Launchd.plist",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ben-z.free-sidecar-helper";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(HELPER_BUNDLE_ID)";
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(PRODUCT_BUNDLE_IDENTIFIER)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -1099,12 +1101,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4C97C55B4F3C54EA5229EB8B /* Pods-free-sidecar-xpc.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = PFCMT7RS6E;
-				ENABLE_HARDENED_RUNTIME = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = "free-sidecar-xpc/Info.plist";
+				INFOPLIST_PREFIX_HEADER = "";
+				INFOPLIST_PREPROCESS = YES;
+				INFOPLIST_PREPROCESSOR_DEFINITIONS = "__HELPER_BUNDLE_ID__=$(HELPER_BUNDLE_ID)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST)_$(_BOOL_$(SKIP_INSTALL)))",
 					"@executable_path/../../../../Frameworks",
@@ -1114,7 +1116,8 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesSwift\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ben-z.free-sidecar-xpc";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(XPC_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1125,12 +1128,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 70D054CAC2A459C83B1FB18B /* Pods-free-sidecar-xpc.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = PFCMT7RS6E;
-				ENABLE_HARDENED_RUNTIME = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = "free-sidecar-xpc/Info.plist";
+				INFOPLIST_PREFIX_HEADER = "";
+				INFOPLIST_PREPROCESS = YES;
+				INFOPLIST_PREPROCESSOR_DEFINITIONS = "__HELPER_BUNDLE_ID__=$(HELPER_BUNDLE_ID)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST)_$(_BOOL_$(SKIP_INSTALL)))",
 					"@executable_path/../../../../Frameworks",
@@ -1140,7 +1143,8 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesSwift\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ben-z.free-sidecar-xpc";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(XPC_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;

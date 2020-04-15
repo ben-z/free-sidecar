@@ -51,4 +51,10 @@ class FreeSidecarHelperDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarHel
         let response = string.lowercased()
         reply(response)
     }
+
+    func getBuildNumber(withReply reply: @escaping (String?) -> Void) {
+        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
+        os_log(.debug, log: log, "Returning build number: %{public}s", build ?? "[unavailable]")
+        reply(build)
+    }
 }

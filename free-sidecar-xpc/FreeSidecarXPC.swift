@@ -49,6 +49,12 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
         reply(response)
     }
 
+    func upperCaseAndJoinStrings(_ string1: String, _ string2: String, withReply reply: @escaping (String) -> Void) {
+        os_log(.debug, log: log, "upperCaseAndJoinStringsis called")
+        let response = (string1 + string2).uppercased()
+        reply(response)
+    }
+
     func installHelper(withReply reply: @escaping (Error?) -> Void) {
 
         getHelperToolConnection {_ in }
@@ -84,6 +90,16 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
             os_log("Response from Helper service: %{public}s", log: log, response)
         }.catch { error in
             os_log(.error, log: log, "Helper XPC Error: %{public}s", error.localizedDescription)
+        }
+
+        xpcGetBuildNumber().then {
+            if let buildNumber = $0 {
+                os_log(.debug, log: log, "Got build number from helper: %{public}s", buildNumber)
+            } else {
+                os_log(.debug, log: log, "Unable to get build number from helper")
+            }
+        }.catch { error in
+            os_log(.error, log: log, "Error when getting build number from helper: %{public}s %{public}s", String(describing: type(of: error)), error.localizedDescription)
         }
 
         // TODO reply

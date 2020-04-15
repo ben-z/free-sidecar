@@ -20,7 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        xpcUpperCaseString("abc").then { response in
+        xpcUpperCaseAndJoinStrings("abc", "DeF").then { response in
             os_log("Response from XPC service: %{public}s", log: log, response)
         }.catch { error in
             os_log(.error, log: log, "XPC Error: %{public}s", error.localizedDescription)

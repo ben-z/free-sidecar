@@ -34,5 +34,9 @@
 	<true/>
 	<key>NSSupportsSuddenTermination</key>
 	<true/>
+	<key>HelperBundleID</key>
+	<string>$(HELPER_BUNDLE_ID)</string>
+	<key>XPCBundleID</key>
+	<string>$(XPC_BUNDLE_ID)</string>
 </dict>
 </plist>

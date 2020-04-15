@@ -11,10 +11,12 @@ import free_sidecar_helper
 import Promises
 import os.log
 
-private typealias XPCProtocol = FreeSidecarHelperProtocol
-
-private let xpcClient = XPCClient(machServiceName: HELPER_BUNDLE_ID, options: .privileged, protocol: XPCProtocol.self)
+private let xpcClient = XPCClient<FreeSidecarHelperProtocol>(machServiceName: HELPER_BUNDLE_ID, options: .privileged, toProtocol: {$0 })
 
 func xpcLowerCaseString(_ string: String) -> Promise<String> {
-    xpcClient.call { service, reply in (service as? XPCProtocol)?.lowerCaseString(string, withReply: reply) }
+    xpcClient.call({ $0.lowerCaseString }, string)
+}
+
+func xpcGetBuildNumber() -> Promise<String?> {
+    xpcClient.call({ $0.getBuildNumber })
 }

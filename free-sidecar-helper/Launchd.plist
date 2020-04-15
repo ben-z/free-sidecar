@@ -4,6 +4,8 @@
 <dict>
 	<key>Label</key>
 	<string>ben-z.free-sidecar-helper</string>
+	<key>StandardOutPath</key>
+	<string>/tmp/ben-z.free-sidecar-helper.out.log</string>
 	<key>MachServices</key>
 	<dict>
 		<key>ben-z.free-sidecar-helper</key>

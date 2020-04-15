@@ -6,6 +6,7 @@
 //  Copyright © 2020 Ben Zhang. All rights reserved.
 //
 
-let APP_BUNDLE_ID = "ben-z.free-sidecar"
-let XPC_BUNDLE_ID = "ben-z.free-sidecar-xpc"
-let HELPER_BUNDLE_ID = "ben-z.free-sidecar-helper"
+import Foundation
+
+let XPC_BUNDLE_ID = Bundle.main.object(forInfoDictionaryKey: "XPCBundleID") as! String
+let HELPER_BUNDLE_ID = Bundle.main.object(forInfoDictionaryKey: "HelperBundleID") as! String
