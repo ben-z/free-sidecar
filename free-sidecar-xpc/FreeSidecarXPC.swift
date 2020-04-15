@@ -50,6 +50,9 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
     }
 
     func installHelper(withReply reply: @escaping (Error?) -> Void) {
+
+        getHelperToolConnection {_ in }
+
         guard let auth = authorization else {
             reply(XPCServiceError(.authUnavailable))
             return
@@ -75,16 +78,14 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
     }
 
     func getHelperToolConnection(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void) {
-        if self.helperToolConnection == nil {
-            self.helperToolConnection = NSXPCConnection(machServiceName: HELPER_BUNDLE_ID, options: .privileged)
-            self.helperToolConnection?.remoteObjectInterface = NSXPCInterface(with: FreeSidecarHelperProtocol.self)
-            self.helperToolConnection?.invalidationHandler = { () -> Void in
-                self.helperToolConnection?.invalidationHandler = nil
-                os_log(.debug, log: log, "Helper connection invalidated")
-                self.helperToolConnection = nil
-            }
+        os_log(.debug, "Calling Helper")
+
+        xpcLowerCaseString("AbCdE").then { response in
+            os_log("Response from Helper service: %{public}s", log: log, response)
+        }.catch { error in
+            os_log(.error, log: log, "Helper XPC Error: %{public}s", error.localizedDescription)
         }
 
-        self.helperToolConnection?.resume()
+        // TODO reply
     }
 }

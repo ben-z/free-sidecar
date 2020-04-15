@@ -10,6 +10,7 @@
 		45874BBB14D1D14064A3703F /* Pods_free_sidecarTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD849B1779820983320C6D59 /* Pods_free_sidecarTests.framework */; };
 		74049058889F217CAEEA23C0 /* Pods_free_sidecar_free_sidecarUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02DBAFF2704B668884A40666 /* Pods_free_sidecar_free_sidecarUITests.framework */; };
 		860692EC2940355F351FB83C /* Pods_free_sidecar_helper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE8AF69B386BC543861857D /* Pods_free_sidecar_helper.framework */; };
+		B5421DAC2446D4DF000FF7A3 /* XPCUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5421DAB2446D4DF000FF7A3 /* XPCUtils.swift */; };
 		B54B527C2365100A00FF9CE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B527B2365100A00FF9CE3 /* AppDelegate.swift */; };
 		B54B527E2365100A00FF9CE3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B527D2365100A00FF9CE3 /* ContentView.swift */; };
 		B54B52802365100B00FF9CE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B54B527F2365100B00FF9CE3 /* Assets.xcassets */; };
@@ -120,6 +121,7 @@
 		9637B28242083483AF3F453F /* Pods_free_sidecar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_free_sidecar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6B32D8346CA0DDB77551251 /* Pods-free-sidecar-free-sidecarUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-free-sidecar-free-sidecarUITests.release.xcconfig"; path = "Target Support Files/Pods-free-sidecar-free-sidecarUITests/Pods-free-sidecar-free-sidecarUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AD849B1779820983320C6D59 /* Pods_free_sidecarTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_free_sidecarTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5421DAB2446D4DF000FF7A3 /* XPCUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCUtils.swift; sourceTree = "<group>"; };
 		B54B52782365100A00FF9CE3 /* free-sidecar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "free-sidecar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B54B527B2365100A00FF9CE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B54B527D2365100A00FF9CE3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 				B57DC8C024452E5B009E03EF /* FreeSidecarXPC.swift */,
 				B57DC8C224452E5B009E03EF /* main.swift */,
 				B57DC8C424452E5B009E03EF /* Info.plist */,
+				B5421DAB2446D4DF000FF7A3 /* XPCUtils.swift */,
 			);
 			path = "free-sidecar-xpc";
 			sourceTree = "<group>";
@@ -722,6 +725,7 @@
 				B552C783244613B700BC1368 /* SynchronizationUtils.swift in Sources */,
 				B552C77F2446104100BC1368 /* AuthorizationUtils.swift in Sources */,
 				B5DBC4DF2446A3E50023FADA /* XPCClient.swift in Sources */,
+				B5421DAC2446D4DF000FF7A3 /* XPCUtils.swift in Sources */,
 				B57DC8C124452E5B009E03EF /* FreeSidecarXPC.swift in Sources */,
 				B552C786244620D900BC1368 /* constants.swift in Sources */,
 			);

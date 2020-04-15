@@ -38,6 +38,7 @@ class FreeSidecarHelperDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarHel
         newConnection.exportedObject = self
         newConnection.invalidationHandler = { () in
             os_log(.debug, log: log, "Connection invalidated!")
+            // TODO: Count active connections and stop helper if possible
         }
         newConnection.resume()
         return true
@@ -46,8 +47,8 @@ class FreeSidecarHelperDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarHel
     // MARK: -
     // MARK: FreeSidecarHelperProtocol
     func lowerCaseString(_ string: String, withReply reply: @escaping (String) -> Void) {
-        os_log(.debug, log: log, "upperCaseString is called")
-        let response = string.uppercased()
+        os_log(.debug, log: log, "lowerCaseString is called")
+        let response = string.lowercased()
         reply(response)
     }
 }
