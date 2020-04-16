@@ -50,7 +50,7 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
     }
 
     func upperCaseAndJoinStrings(_ string1: String, _ string2: String, withReply reply: @escaping (String) -> Void) {
-        os_log(.debug, log: log, "upperCaseAndJoinStringsis called")
+        os_log(.debug, log: log, "upperCaseAndJoinStrings is called")
         let response = (string1 + string2).uppercased()
         reply(response)
     }

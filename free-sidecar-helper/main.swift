@@ -13,11 +13,6 @@ let log = OSLog(subsystem: (Bundle.main.bundleIdentifier ?? "bundle") + ".helper
 
 os_log(.debug, log: log, "Hello, World!")
 
-func readToEOF(pipe: Pipe) -> String {
-    let data = pipe.fileHandleForReading.readDataToEndOfFile();
-    return String(decoding: data, as: UTF8.self)
-}
-
 func isSIPDisabled() -> Bool? {
     let task = Process()
     let outputPipe = Pipe()

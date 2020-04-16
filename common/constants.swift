@@ -10,3 +10,4 @@ import Foundation
 
 let XPC_BUNDLE_ID = Bundle.main.object(forInfoDictionaryKey: "XPCBundleID") as! String
 let HELPER_BUNDLE_ID = Bundle.main.object(forInfoDictionaryKey: "HelperBundleID") as! String
+let SYSTEM_SIDECARCORE_PATH = "/System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore"
