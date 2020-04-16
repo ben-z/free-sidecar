@@ -13,34 +13,6 @@ let log = OSLog(subsystem: (Bundle.main.bundleIdentifier ?? "bundle") + ".helper
 
 os_log(.debug, log: log, "Hello, World!")
 
-func isSIPDisabled() -> Bool? {
-    let task = Process()
-    let outputPipe = Pipe()
-
-    task.executableURL = URL(fileURLWithPath: "/usr/bin/csrutil")
-    task.arguments = ["status"]
-    task.standardOutput = outputPipe
-
-    do {
-        try task.run()
-    } catch {
-        // task launched unsuccessfully
-        return nil
-    }
-
-    task.waitUntilExit()
-    if task.terminationStatus != 0 {
-        return nil
-    }
-
-    let output = readToEOF(pipe: outputPipe)
-    if let range = output.range(of: #"enabled|disabled"#, options: .regularExpression) {
-        return output[range.lowerBound..<range.upperBound] == "disabled"
-    } else {
-        return nil
-    }
-}
-
 let isDisabledStr: String
 if let isDisabled = isSIPDisabled() {
     isDisabledStr = String(isDisabled)

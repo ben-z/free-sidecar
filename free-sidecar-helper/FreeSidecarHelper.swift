@@ -61,4 +61,9 @@ class FreeSidecarHelperDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarHel
     func getEndpoint(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void) {
         reply(service.endpoint)
     }
+
+    func mountRootAsRW(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void) {}
+    func overwriteSystemSidecarCore(with src: URL, withReply reply: @escaping (NSXPCListenerEndpoint) -> Void) {}
+    func signSystemSidecarCore(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void) {}
+    func setNVRAMBootFlag(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void) {}
 }

@@ -53,11 +53,17 @@ struct ContentView: View {
     @State private var downloads_to_system: String = "cp \(SIDECARCORE_WIP_PATH) \(SYSTEM_SIDECARCORE_PATH)"
     @State private var sign: String = SIGN_COMMAND
 
-    @State private var backupButtonText: String = "Backup"
+    @State private var autoPatchText: String = "Auto-patch!"
     private let xcodeCLTPath = getXcodeCLTPath()
     private let xcodeCLTVersion = getXcodeCLTVersion()
     private let sipDisabled = isSIPDisabled()
     private let isSidecarCoreModified = hasAppleSignature(filePath: SYSTEM_SIDECARCORE_PATH)
+    private let authExtFormData: NSData
+
+    // Very bad to let the view handle actions. But here we are making an MVP
+    init(_ authExtFormData: NSData) {
+        self.authExtFormData = authExtFormData
+    }
 
     var body: some View {
         ScrollView {
@@ -112,6 +118,70 @@ struct ContentView: View {
                                 return "Error checking the integrity of SidecarCore"
                             }
                         }())
+                        Button(action: {
+                            self.autoPatchText = "Working..."
+
+                            let panel = NSSavePanel()
+                            panel.prompt = "Backup"
+                            panel.title = "Backup SidecarCore"
+                            panel.message = "Select a location to save the backup file"
+                            panel.nameFieldStringValue = "SidecarCore.bak"
+                            panel.isExtensionHidden = false
+                            panel.showsHiddenFiles = true
+                            panel.canCreateDirectories = true
+                            panel.showsTagField = false
+                            DispatchQueue.main.async {
+                                let result = panel.runModal()
+                                guard result == .OK else {
+                                    os_log(.info, log: log, "Auto-patch cancelled")
+                                    self.autoPatchText = "Auto-patch cancelled"
+                                    return
+                                }
+
+                                guard let backupLocation = panel.url else {
+                                    os_log(.info, log: log, "panel.url is nil, aborting")
+                                    return
+                                }
+
+                                os_log(.info, log: log, "Saving backup file to %{public}s", backupLocation.path)
+                                do {
+                                    if FileManager.default.fileExists(atPath: backupLocation.path) {
+                                        try FileManager.default.trashItem(at: backupLocation, resultingItemURL: nil)
+                                    }
+                                    try FileManager.default.copyItem(at: URL(fileURLWithPath: SYSTEM_SIDECARCORE_PATH), to: backupLocation)
+                                    os_log(.debug, "Back up successful")
+                                } catch {
+                                    os_log(.error, "Error backing up SidecarCore (%{public}s). Aborting", error.localizedDescription)
+                                    return
+                                }
+
+                                let tempDir = FileManager.default.temporaryDirectory
+                                let wipURL = URL(fileURLWithPath: "SidecarCore", relativeTo: tempDir)
+                                os_log(.info, log: log, "Copying SidecarCore to %{public}s", wipURL.path)
+                                do {
+                                    if FileManager.default.fileExists(atPath: wipURL.path) {
+                                        try FileManager.default.trashItem(at: wipURL, resultingItemURL: nil)
+                                    }
+                                    try FileManager.default.copyItem(at: URL(fileURLWithPath: SYSTEM_SIDECARCORE_PATH), to: wipURL)
+                                } catch {
+                                    os_log(.error, "Unable to copy SidecarCore to working directory (%{public}s), aborting.", error.localizedDescription)
+                                    return
+                                }
+
+                                do {
+                                    try patch(models: dostuff2(sidecarCore: wipURL), sidecarCore: wipURL)
+                                } catch {
+                                    os_log(.error, "Unable to patch SidecarCore (%{public}s), aborting.", error.localizedDescription)
+                                    return
+                                }
+
+                                // TODO: (privileged operations) mount, copy back, codesign, nvram
+
+                                self.autoPatchText = "Done!"
+                            }
+                        }) {
+                            Text(autoPatchText)
+                        }
                     }.padding()
                     VStack {
                         Text("Follow the steps below to enable/disable Sidecar on your system.")
@@ -125,33 +195,6 @@ struct ContentView: View {
                             .font(.system(size: 10, design: .monospaced))
                             .padding(.leading, 20)
                             .padding(.trailing, 20)
-//                        Can't access the Downloads folder directly in sandbox. But here's a sample of what to do when we want ot run a command
-//                        Button(action: {
-//                            queue.async {
-//                                self.backupButtonText = "Backing up..."
-//                                let (task, _, errPipe) = copyFile(from: SYSTEM_SIDECARCORE_PATH, to: SIDECARCORE_BACKUP_PATH)
-//
-//                                do {
-//                                    try task.run()
-//                                } catch {
-//                                    print("Backup command failed. Error: ", error.localizedDescription)
-//                                    self.backupButtonText = "Error"
-//                                    return
-//                                }
-//
-//                                task.waitUntilExit()
-//
-//                                if (task.terminationStatus == 0) {
-//                                    print("Backup successful")
-//                                    self.backupButtonText = "Success"
-//                                } else {
-//                                    print("Backup failed, stderr:", readToEOF(pipe: errPipe))
-//                                    self.backupButtonText = "Error"
-//                                }
-//                            }
-//                        }) {
-//                            Text(backupButtonText)
-//                        }
                     }.padding()
                     VStack {
                         Text("2. Copy SidecarCore from the System folder (run this in Terminal):")
@@ -163,7 +206,7 @@ struct ContentView: View {
                     VStack {
                         Text("3. Choose the location of the SidecarCore file to be patched (~/Downloads/SidecarCore from step 2:")
                         if selectedURL != nil {
-                            Text("Selected: \(selectedURL!.absoluteString)")
+                            Text("Selected: \(selectedURL!.path)")
                         } else {
                             Text("No selection")
                         }
@@ -248,9 +291,9 @@ struct ContentView: View {
         }
     }
 }
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}

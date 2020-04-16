@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 struct SystemVersion: Decodable, Equatable {
     let major: Int
@@ -161,4 +162,25 @@ func hasAppleSignature(filePath: String) -> Bool? {
     return output.contains("Authority=Software Signing")
         && output.contains("Authority=Apple Code Signing Certification Authority")
         && output.contains("Authority=Apple Root CA")
+}
+
+func readToEOF(pipe: Pipe) -> String {
+    let data = pipe.fileHandleForReading.readDataToEndOfFile();
+    return String(decoding: data, as: UTF8.self)
+}
+
+// TODO: can replace this with filemanager
+func copyFile(from: String, to: String) -> (Process, Pipe, Pipe) {
+    os_log(.debug, log: log, "copyFile: %{public}s -> %{public}s", from, to)
+
+    let task = Process()
+    let outputPipe = Pipe()
+    let errorPipe = Pipe()
+
+    task.executableURL = URL(fileURLWithPath: "/bin/cp")
+    task.arguments = [from, to]
+    task.standardOutput = outputPipe
+    task.standardError = errorPipe
+
+    return (task, outputPipe, errorPipe)
 }

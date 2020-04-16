@@ -25,4 +25,8 @@ import ServiceManagement
     func lowerCaseString(_ string: String, withReply reply: @escaping (String) -> Void)
     func getBuildNumber(withReply reply: @escaping (String?) -> Void)
     func getEndpoint(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void)
+    func mountRootAsRW(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void)
+    func overwriteSystemSidecarCore(with src: URL, withReply reply: @escaping (NSXPCListenerEndpoint) -> Void)
+    func signSystemSidecarCore(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void)
+    func setNVRAMBootFlag(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void)
 }

@@ -107,6 +107,10 @@ struct Model {
     let enabled: Bool
 }
 
+enum PatchError: Error {
+    case badInputFile
+}
+
 func dostuff2(sidecarCore: URL) -> [Model] {
     if let contents =  FileManager.default.contents(atPath: sidecarCore.path) {
         let hexStr = contents.hexEncodedString(options: [.upperCase])
@@ -160,6 +164,25 @@ func patch(model: Model, sidecarCore: URL) -> Bool {
     }
 
     return false
+}
+
+func patch(models: [Model], sidecarCore: URL) throws -> Void {
+    if let contents = FileManager.default.contents(atPath: sidecarCore.path) {
+        var hexStr = contents.hexEncodedString(options: [.upperCase])
+
+        for model in models {
+            // Mask the model number
+            let replacementModelHex = Data([UInt8](Data(hex: model.modelHex)).map { $0 | 0xC0 }).hexEncodedString(options: [.upperCase])
+
+            // Generate a new string
+            hexStr = (hexStr as NSString).replacingOccurrences(of: model.modelHex, with: replacementModelHex, range: model.modelHexRange)
+        }
+
+        // Write to file
+        try Data(hex: hexStr).write(to: sidecarCore)
+    } else {
+        throw PatchError.badInputFile
+    }
 }
 
 func unpatch(model: Model, sidecarCore: URL) -> Bool {
