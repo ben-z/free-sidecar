@@ -10,6 +10,7 @@ import Cocoa
 import SwiftUI
 import os.log
 import free_sidecar_xpc
+import free_sidecar_helper
 
 let log = OSLog(subsystem: (Bundle.main.bundleIdentifier ?? "bundle") + ".app", category: "default")
 
@@ -24,12 +25,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             os_log("Response from XPC service: %{public}s", log: log, response)
         }.catch { error in
             os_log(.error, log: log, "XPC Error: %{public}s", error.localizedDescription)
-        }
-        
-        xpcUpdateHelper().then {_ in
-            os_log(.info, log: log, "Successfully updated helper")
+        }.then {
+            xpcUpdateHelper()
+        }.then {_ in
+            os_log(.info, log: log, "Helper is up-to-date.")
         }.catch { error in
             os_log(.error, log: log, "An error occured when installing helper: %s", error.localizedDescription)
+        }.then {
+            xpcGetHelperEndpoint()
+        }.then { helperEndpoint in
+            let helperConnection = XPCClient<FreeSidecarHelperProtocol>(listenerEndpoint: helperEndpoint, toProtocol: { $0 })
+
+            helperConnection.call({ $0.getBuildNumber }).then {
+                if let buildNumber = $0 {
+                    os_log(.debug, log: log, "[App] Got build number from helper: %{public}s", buildNumber)
+                } else {
+                    os_log(.debug, log: log, "[App] Unable to get build number from helper")
+                }
+            }.catch { error in
+                os_log(.error, log: log, "[App] Error when getting build number from helper: %{public}s %{public}s", String(describing: type(of: error)), error.localizedDescription)
+            }
         }
         
         // Create the SwiftUI view that provides the window contents.

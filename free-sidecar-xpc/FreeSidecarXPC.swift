@@ -83,12 +83,15 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
     func updateHelper(withReply reply: @escaping (Error?) -> Void) {
         xpcGetBuildNumber().then {
             if let buildNumber = $0, buildNumber == HELPER_BUILD_NUMBER {
-                os_log(.debug, log: log, "Helper is up-to-date: %{public}s.", buildNumber)
+                os_log(.debug, log: log, "Helper is up-to-date (build %{public}s).", buildNumber)
                 reply(nil)
             } else {
                 os_log(.debug, log: log, "Helper version mismatch: expecting %{public}s, got %{public}s. Reinstalling helper.", HELPER_BUILD_NUMBER, $0 ?? "nil")
                 self.installHelper(withReply: reply)
             }
+        }.catch { error in
+            os_log(.error, log: log, "Error getting build number: %s. Installing helper", error.localizedDescription)
+            self.installHelper(withReply: reply)
         }
     }
 
@@ -112,5 +115,12 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
         }
 
         // TODO reply
+    }
+
+    func getHelperEndpoint(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void) {
+        xpcGetEndpoint().then(reply).catch { error in
+            os_log(.error, log: log, "XPC is Unable to get helper endpoint: %{public}s", error.localizedDescription)
+            print(type(of: error))
+        }
     }
 }

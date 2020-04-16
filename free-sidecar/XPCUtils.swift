@@ -41,3 +41,6 @@ func xpcUpdateHelper() -> Promise<Void> {
     }
 }
 
+func xpcGetHelperEndpoint() -> Promise<NSXPCListenerEndpoint> {
+    xpcClient.call({ $0.getHelperEndpoint })
+}

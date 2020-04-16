@@ -20,3 +20,7 @@ func xpcLowerCaseString(_ string: String) -> Promise<String> {
 func xpcGetBuildNumber() -> Promise<String?> {
     xpcClient.call({ $0.getBuildNumber })
 }
+
+func xpcGetEndpoint() -> Promise<NSXPCListenerEndpoint> {
+    xpcClient.call({ $0.getEndpoint })
+}

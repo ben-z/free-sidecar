@@ -57,4 +57,8 @@ class FreeSidecarHelperDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarHel
         os_log(.debug, log: log, "Returning build number: %{public}s", build ?? "[unavailable]")
         reply(build)
     }
+
+    func getEndpoint(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void) {
+        reply(service.endpoint)
+    }
 }

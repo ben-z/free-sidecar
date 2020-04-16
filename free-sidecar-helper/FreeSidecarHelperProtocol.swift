@@ -24,4 +24,5 @@ import ServiceManagement
 @objc public protocol FreeSidecarHelperProtocol {
     func lowerCaseString(_ string: String, withReply reply: @escaping (String) -> Void)
     func getBuildNumber(withReply reply: @escaping (String?) -> Void)
+    func getEndpoint(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void)
 }

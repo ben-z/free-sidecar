@@ -16,6 +16,7 @@ class XPCClient<P>  {
     enum InitParams {
         case service(_ serviceName: String)
         case machService(_ machServiceName: String, _ options: NSXPCConnection.Options)
+        case listenerEndpoint(_ listenerEndpoint: NSXPCListenerEndpoint)
     }
 
     let initParams: InitParams
@@ -34,7 +35,11 @@ class XPCClient<P>  {
     init(machServiceName: String, options: NSXPCConnection.Options, toProtocol: @escaping (P.Type) -> Protocol) {
         initParams = .machService(machServiceName, options)
         self.toProtocol = toProtocol
+    }
 
+    init(listenerEndpoint: NSXPCListenerEndpoint, toProtocol: @escaping (P.Type) -> Protocol) {
+        initParams = .listenerEndpoint(listenerEndpoint)
+        self.toProtocol = toProtocol
     }
 
     func connect() -> NSXPCConnection {
@@ -48,6 +53,8 @@ class XPCClient<P>  {
             conn = NSXPCConnection(serviceName: serviceName)
         case let .machService(machServiceName, options):
             conn = NSXPCConnection(machServiceName: machServiceName, options: options)
+        case let .listenerEndpoint(listenerEndpoint):
+            conn = NSXPCConnection(listenerEndpoint: listenerEndpoint)
         }
         self.connection = conn
 
