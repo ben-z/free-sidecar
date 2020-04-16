@@ -117,8 +117,19 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
         // TODO reply
     }
 
-    func getHelperEndpoint(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void) {
-        xpcGetEndpoint().then(reply).catch { error in
+    func getHelperEndpoint(withReply reply: @escaping (Error?, NSXPCListenerEndpoint?, NSData?) -> Void) {
+        guard let auth = self.authorization else {
+            os_log(.error, log: log, "XPC is unable to get helper endpoint because authorization is unavailable")
+            reply(XPCServiceError(.authUnavailable), nil, nil)
+            return
+        }
+
+        xpcGetEndpoint().then{ endpoint in
+            var extForm = try auth.makeExternalForm()
+            let data = NSData(bytes: &extForm, length: kAuthorizationExternalFormLength)
+            reply(nil, endpoint, data)
+            os_log(.error, log: log, "done returning helper endpoint")
+        }.catch { error in
             os_log(.error, log: log, "XPC is Unable to get helper endpoint: %{public}s", error.localizedDescription)
             print(type(of: error))
         }

@@ -11,6 +11,7 @@ import Promises
 import os.log
 
 struct XPCUnavailableError: Error {}
+struct XPCInconsistentError: Error {}
 
 class XPCClient<P>  {
     enum InitParams {
@@ -131,6 +132,45 @@ class XPCClient<P>  {
         let promise = Promise<R>.pending()
         if let service = connect().remoteObjectProxyWithErrorHandler(promise.reject) as? P {
             getMethod(service)(paramA, paramB, promise.fulfill)
+        } else {
+            promise.reject(XPCUnavailableError())
+        }
+        return promise
+    }
+
+    /// A version of `call(getMethod:param:)` with 2 callback arguments
+    func call<A, R1, R2>(_ getMethod: (P) -> (A, @escaping (R1, R2) -> Void) -> Void, _ param: A) -> Promise<(R1, R2)> {
+        let promise = Promise<(R1, R2)>.pending()
+        if let service = connect().remoteObjectProxyWithErrorHandler(promise.reject) as? P {
+            getMethod(service)(param) { r1, r2 in
+                promise.fulfill((r1, r2))
+            }
+        } else {
+            promise.reject(XPCUnavailableError())
+        }
+        return promise
+    }
+
+    /// A version of `call(getMethod:param:)` with 3 callback arguments
+    func call<A, R1, R2, R3>(_ getMethod: (P) -> (A, @escaping (R1, R2, R3) -> Void) -> Void, _ param: A) -> Promise<(R1, R2, R3)> {
+        let promise = Promise<(R1, R2, R3)>.pending()
+        if let service = connect().remoteObjectProxyWithErrorHandler(promise.reject) as? P {
+            getMethod(service)(param) { r1, r2, r3 in
+                promise.fulfill((r1, r2, r3))
+            }
+        } else {
+            promise.reject(XPCUnavailableError())
+        }
+        return promise
+    }
+
+    /// A version of `call(getMethod:param:)` with 0 arguments and 3 callback arguments
+    func call<R1, R2, R3>(_ getMethod: (P) -> (@escaping (R1, R2, R3) -> Void) -> Void) -> Promise<(R1, R2, R3)> {
+        let promise = Promise<(R1, R2, R3)>.pending()
+        if let service = connect().remoteObjectProxyWithErrorHandler(promise.reject) as? P {
+            getMethod(service)() { r1, r2, r3 in
+                promise.fulfill((r1, r2, r3))
+            }
         } else {
             promise.reject(XPCUnavailableError())
         }

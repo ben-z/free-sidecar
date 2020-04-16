@@ -18,7 +18,7 @@ let log = OSLog(subsystem: (Bundle.main.bundleIdentifier ?? "bundle") + ".app", 
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     var window: NSWindow!
-
+    var authExtFormData: NSData?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         xpcUpperCaseAndJoinStrings("abc", "DeF").then { response in
@@ -33,7 +33,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             os_log(.error, log: log, "An error occured when installing helper: %s", error.localizedDescription)
         }.then {
             xpcGetHelperEndpoint()
-        }.then { helperEndpoint in
+        }.then {
+            if let error = $0.0 {
+                throw error
+            }
+            guard let helperEndpoint = $0.1,
+                let authExtFormData = $0.2 else {
+                    throw XPCInconsistentError()
+            }
+
+            self.authExtFormData = authExtFormData // store for use when authenticating with the client
+
             let helperConnection = XPCClient<FreeSidecarHelperProtocol>(listenerEndpoint: helperEndpoint, toProtocol: { $0 })
 
             helperConnection.call({ $0.getBuildNumber }).then {
@@ -45,6 +55,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }.catch { error in
                 os_log(.error, log: log, "[App] Error when getting build number from helper: %{public}s %{public}s", String(describing: type(of: error)), error.localizedDescription)
             }
+        }.catch { error in
+            os_log(.error, log: log, "An error occured when getting helper endpoint: %s", error.localizedDescription)
         }
         
         // Create the SwiftUI view that provides the window contents.
