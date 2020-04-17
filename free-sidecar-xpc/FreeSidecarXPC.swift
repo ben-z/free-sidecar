@@ -15,6 +15,7 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
     private let service = NSXPCListener.service()
     private let authorization: Authorization? = try? Authorization()
     private var helperToolConnection: NSXPCConnection?
+    private var helperClient = XPCClient<FreeSidecarHelperProtocol>(machServiceName: HELPER_BUNDLE_ID, options: .privileged, toProtocol: {$0 })
     
     override init() {
         super.init()
@@ -72,6 +73,7 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
         var cfErr: Unmanaged<CFError>?
 
         if SMJobBless(kSMDomainSystemLaunchd, HELPER_BUNDLE_ID as CFString, auth.authRef, &cfErr) {
+            self.helperClient = XPCClient<FreeSidecarHelperProtocol>(machServiceName: HELPER_BUNDLE_ID, options: .privileged, toProtocol: {$0 })
             reply(nil)
         } else if let err = cfErr?.takeRetainedValue() {
             reply(err)
@@ -81,7 +83,7 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
     }
 
     func updateHelper(withReply reply: @escaping (Error?) -> Void) {
-        xpcGetBuildNumber().then {
+        helperClient.call({ $0.getBuildNumber }).then {
             if let buildNumber = $0, buildNumber == HELPER_BUILD_NUMBER {
                 os_log(.debug, log: log, "Helper is up-to-date (build %{public}s).", buildNumber)
                 reply(nil)
@@ -95,28 +97,6 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
         }
     }
 
-    func getHelperToolConnection(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void) {
-        os_log(.debug, "Calling Helper")
-
-        xpcLowerCaseString("AbCdE").then { response in
-            os_log("Response from Helper service: %{public}s", log: log, response)
-        }.catch { error in
-            os_log(.error, log: log, "Helper XPC Error: %{public}s", error.localizedDescription)
-        }
-
-        xpcGetBuildNumber().then {
-            if let buildNumber = $0 {
-                os_log(.debug, log: log, "Got build number from helper: %{public}s", buildNumber)
-            } else {
-                os_log(.debug, log: log, "Unable to get build number from helper")
-            }
-        }.catch { error in
-            os_log(.error, log: log, "Error when getting build number from helper: %{public}s %{public}s", String(describing: type(of: error)), error.localizedDescription)
-        }
-
-        // TODO reply
-    }
-
     func getHelperEndpoint(withReply reply: @escaping (Error?, NSXPCListenerEndpoint?, NSData?) -> Void) {
         guard let auth = self.authorization else {
             os_log(.error, log: log, "XPC is unable to get helper endpoint because authorization is unavailable")
@@ -124,7 +104,7 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
             return
         }
 
-        xpcGetEndpoint().then{ endpoint in
+        helperClient.call({ $0.getEndpoint }).then{ endpoint in
             var extForm = try auth.makeExternalForm()
             let data = NSData(bytes: &extForm, length: kAuthorizationExternalFormLength)
             reply(nil, endpoint, data)
