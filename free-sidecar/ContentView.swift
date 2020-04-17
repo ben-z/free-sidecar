@@ -200,19 +200,13 @@ struct ContentView: View {
                                 do {
                                     try await(self.helperConnection.call({ $0.overwriteSystemSidecarCore }, wipURL))
                                 } catch {
-                                    // TODO: why does it always work on the second try?
-                                    os_log(.error, log: log, "Unable to overwrite system SidecarCore, trying again.", error.localizedDescription)
+                                    os_log(.error, log: log, "Unable to overwrite system SidecarCore, restoring backup file and aborting.", error.localizedDescription)
                                     do {
-                                        try await(self.helperConnection.call({ $0.overwriteSystemSidecarCore }, wipURL))
+                                        try await(self.helperConnection.call({ $0.overwriteSystemSidecarCore }, backupURL))
                                     } catch {
-                                        os_log(.error, log: log, "Unable to overwrite system SidecarCore, restoring backup file and aborting.", error.localizedDescription)
-                                        do {
-                                            try await(self.helperConnection.call({ $0.overwriteSystemSidecarCore }, backupURL))
-                                        } catch {
-                                            os_log(.error, log: log, "Unable to restore backup SidecarCore. Please manually troubleshoot", error.localizedDescription)
-                                        }
-                                        return
+                                        os_log(.error, log: log, "Unable to restore backup SidecarCore. Please manually troubleshoot", error.localizedDescription)
                                     }
+                                    return
                                 }
 
                                 os_log(.info, log: log, "Code signing")

@@ -10,6 +10,7 @@
 		45874BBB14D1D14064A3703F /* Pods_free_sidecarTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD849B1779820983320C6D59 /* Pods_free_sidecarTests.framework */; };
 		74049058889F217CAEEA23C0 /* Pods_free_sidecar_free_sidecarUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02DBAFF2704B668884A40666 /* Pods_free_sidecar_free_sidecarUITests.framework */; };
 		860692EC2940355F351FB83C /* Pods_free_sidecar_helper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE8AF69B386BC543861857D /* Pods_free_sidecar_helper.framework */; };
+		B501EF1A2449EE930058F19F /* MiscUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C781244613B700BC1368 /* MiscUtils.swift */; };
 		B54B527C2365100A00FF9CE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B527B2365100A00FF9CE3 /* AppDelegate.swift */; };
 		B54B527E2365100A00FF9CE3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B527D2365100A00FF9CE3 /* ContentView.swift */; };
 		B54B52802365100B00FF9CE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B54B527F2365100B00FF9CE3 /* Assets.xcassets */; };
@@ -21,8 +22,8 @@
 		B552C75D2445845100BC1368 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C75C2445845100BC1368 /* main.swift */; };
 		B552C77F2446104100BC1368 /* AuthorizationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C76A2445964300BC1368 /* AuthorizationUtils.swift */; };
 		B552C7802446104200BC1368 /* AuthorizationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C76A2445964300BC1368 /* AuthorizationUtils.swift */; };
-		B552C782244613B700BC1368 /* SynchronizationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C781244613B700BC1368 /* SynchronizationUtils.swift */; };
-		B552C783244613B700BC1368 /* SynchronizationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C781244613B700BC1368 /* SynchronizationUtils.swift */; };
+		B552C782244613B700BC1368 /* MiscUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C781244613B700BC1368 /* MiscUtils.swift */; };
+		B552C783244613B700BC1368 /* MiscUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C781244613B700BC1368 /* MiscUtils.swift */; };
 		B552C785244620D900BC1368 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C784244620D900BC1368 /* constants.swift */; };
 		B552C786244620D900BC1368 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C784244620D900BC1368 /* constants.swift */; };
 		B552C787244620D900BC1368 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B552C784244620D900BC1368 /* constants.swift */; };
@@ -145,7 +146,7 @@
 		B552C7612445851F00BC1368 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B552C76924458FD800BC1368 /* Launchd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Launchd.plist; sourceTree = "<group>"; };
 		B552C76A2445964300BC1368 /* AuthorizationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationUtils.swift; sourceTree = "<group>"; };
-		B552C781244613B700BC1368 /* SynchronizationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizationUtils.swift; sourceTree = "<group>"; usesTabs = 0; wrapsLines = 0; };
+		B552C781244613B700BC1368 /* MiscUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscUtils.swift; sourceTree = "<group>"; usesTabs = 0; wrapsLines = 0; };
 		B552C784244620D900BC1368 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 		B552C78C2446751F00BC1368 /* ben-z.free-sidecar-helper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "ben-z.free-sidecar-helper.entitlements"; sourceTree = "<group>"; };
 		B57DC8BC24452E5B009E03EF /* free-sidecar-xpc.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = "free-sidecar-xpc.xpc"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -329,7 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				B552C76A2445964300BC1368 /* AuthorizationUtils.swift */,
-				B552C781244613B700BC1368 /* SynchronizationUtils.swift */,
+				B552C781244613B700BC1368 /* MiscUtils.swift */,
 				B552C784244620D900BC1368 /* constants.swift */,
 				B5DBC4DD2446A3E50023FADA /* XPCClient.swift */,
 				B57E9AF32448E8DA009653B5 /* SystemUtils.swift */,
@@ -729,7 +730,7 @@
 				B57E9AF42448E8DA009653B5 /* SystemUtils.swift in Sources */,
 				B57E9AF62448E95E009653B5 /* CwlSysctl.swift in Sources */,
 				B54B527E2365100A00FF9CE3 /* ContentView.swift in Sources */,
-				B552C782244613B700BC1368 /* SynchronizationUtils.swift in Sources */,
+				B552C782244613B700BC1368 /* MiscUtils.swift in Sources */,
 				B552C785244620D900BC1368 /* constants.swift in Sources */,
 				B54B527C2365100A00FF9CE3 /* AppDelegate.swift in Sources */,
 				B5DBC4E12446A4E80023FADA /* XPCUtils.swift in Sources */,
@@ -760,6 +761,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B552C75D2445845100BC1368 /* main.swift in Sources */,
+				B501EF1A2449EE930058F19F /* MiscUtils.swift in Sources */,
 				B5B869862446939F00628886 /* FreeSidecarHelperProtocol.swift in Sources */,
 				B552C787244620D900BC1368 /* constants.swift in Sources */,
 				B57E9AFC2449007B009653B5 /* SystemUtils.swift in Sources */,
@@ -773,7 +775,7 @@
 			files = (
 				B57DC8C324452E5B009E03EF /* main.swift in Sources */,
 				B57DC8CE24453C81009E03EF /* FreeSidecarXPCProtocol.swift in Sources */,
-				B552C783244613B700BC1368 /* SynchronizationUtils.swift in Sources */,
+				B552C783244613B700BC1368 /* MiscUtils.swift in Sources */,
 				B552C77F2446104100BC1368 /* AuthorizationUtils.swift in Sources */,
 				B5C44FBA2447B79A007EB1BD /* XPCConstants.swift in Sources */,
 				B5DBC4DF2446A3E50023FADA /* XPCClient.swift in Sources */,
@@ -1082,7 +1084,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "free-sidecar-helper/ben-z.free-sidecar-helper.entitlements";
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 27;
 				EXECUTABLE_PREFIX = "$(PRODUCT_BUNDLE_IDENTIFIER:base).";
 				INFOPLIST_FILE = "free-sidecar-helper/Info.plist";
 				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
@@ -1119,7 +1121,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "free-sidecar-helper/ben-z.free-sidecar-helper.entitlements";
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 27;
 				EXECUTABLE_PREFIX = "$(PRODUCT_BUNDLE_IDENTIFIER:base).";
 				INFOPLIST_FILE = "free-sidecar-helper/Info.plist";
 				INFOPLIST_OUTPUT_FORMAT = "same-as-input";

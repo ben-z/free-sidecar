@@ -46,12 +46,6 @@ class FreeSidecarHelperDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarHel
 
     // MARK: -
     // MARK: FreeSidecarHelperProtocol
-    func lowerCaseString(_ string: String, withReply reply: @escaping (String) -> Void) {
-        os_log(.debug, log: log, "lowerCaseString is called")
-        let response = string.lowercased()
-        reply(response)
-    }
-
     func getBuildNumber(withReply reply: @escaping (String?) -> Void) {
         let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
         os_log(.debug, log: log, "Returning build number: %{public}s", build ?? "[unavailable]")
@@ -74,7 +68,7 @@ class FreeSidecarHelperDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarHel
             try task.run()
         } catch {
             // task launched unsuccessfully
-            os_log(.debug, log: log, "mount task launched unsuccessfully: %{public}s", error.localizedDescription)
+            os_log(.error, log: log, "mount task launched unsuccessfully: %{public}s", error.localizedDescription)
             reply(error)
             return
         }
@@ -82,7 +76,7 @@ class FreeSidecarHelperDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarHel
         task.waitUntilExit()
         if task.terminationStatus != 0 {
             let errorMsg = readToEOF(pipe: errorPipe)
-            os_log(.debug, log: log, "mount finished unsuccessfully: %{public}s", errorMsg)
+            os_log(.error, log: log, "mount finished unsuccessfully: %{public}s", errorMsg)
             reply(HelperError(.commandError, dueTo: errorMsg))
         } else {
             os_log(.debug, log: log, "mounted")
@@ -101,7 +95,7 @@ class FreeSidecarHelperDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarHel
             try task.run()
         } catch {
             // task launched unsuccessfully
-            os_log(.debug, log: log, "nvram task launched unsuccessfully: %{public}s", error.localizedDescription)
+            os_log(.error, log: log, "nvram task launched unsuccessfully: %{public}s", error.localizedDescription)
             reply(error)
             return
         }
@@ -109,7 +103,7 @@ class FreeSidecarHelperDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarHel
         task.waitUntilExit()
         if task.terminationStatus != 0 {
             let errorMsg = readToEOF(pipe: errorPipe)
-            os_log(.debug, log: log, "nvram task finished unsuccessfully: %{public}s", errorMsg)
+            os_log(.error, log: log, "nvram task finished unsuccessfully: %{public}s", errorMsg)
             reply(HelperError(.commandError, dueTo: errorMsg))
         } else {
             os_log(.debug, log: log, "Finished setting nvram boot-args")
@@ -120,14 +114,16 @@ class FreeSidecarHelperDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarHel
         let systemSidecarCoreURL = URL(fileURLWithPath: SYSTEM_SIDECARCORE_PATH)
         os_log(.debug, log: log, "replacing %{public}s with %{public}s", systemSidecarCoreURL.path, src.path)
         do {
-            if FileManager.default.fileExists(atPath: systemSidecarCoreURL.path) {
-                try FileManager.default.trashItem(at: systemSidecarCoreURL, resultingItemURL: nil)
+            try withRetry(maxRetry: 1) { // for some reason trashItem can throw an error even when the operation is successful
+                if FileManager.default.fileExists(atPath: systemSidecarCoreURL.path) {
+                    try FileManager.default.trashItem(at: systemSidecarCoreURL, resultingItemURL: nil)
+                }
             }
             try FileManager.default.copyItem(at: src, to: systemSidecarCoreURL)
             os_log(.debug, log: log, "successfully replaced system SidecarCore with %{public}s", src.path)
             reply(nil)
         } catch {
-            os_log(.debug, log: log, "Error when overwriting system SidecarCore: %{public}s", error.localizedDescription)
+            os_log(.error, log: log, "Error when overwriting system SidecarCore: %{public}s %{public}s", String(describing: type(of: error)), error.localizedDescription)
             reply(error)
         }
     }
@@ -143,7 +139,7 @@ class FreeSidecarHelperDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarHel
             try task.run()
         } catch {
             // task launched unsuccessfully
-            os_log(.debug, log: log, "codesign task launched unsuccessfully: %{public}s", error.localizedDescription)
+            os_log(.error, log: log, "codesign task launched unsuccessfully: %{public}s", error.localizedDescription)
             reply(error)
             return
         }
@@ -151,7 +147,7 @@ class FreeSidecarHelperDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarHel
         task.waitUntilExit()
         if task.terminationStatus != 0 {
             let errorMsg = readToEOF(pipe: errorPipe)
-            os_log(.debug, log: log, "codesign task finished unsuccessfully: %{public}s", errorMsg)
+            os_log(.error, log: log, "codesign task finished unsuccessfully: %{public}s", errorMsg)
             reply(HelperError(.commandError, dueTo: errorMsg))
         } else {
             os_log(.debug, log: log, "Finished code signing")

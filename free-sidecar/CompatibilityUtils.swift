@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 enum CompatibilityStatus: String, Decodable {
     case works
@@ -73,7 +74,7 @@ func getCompatibilityData(url: URL, syntax: Compatibility.Syntax) -> Compatibili
             }
 
         } catch {
-            debugPrint(error)
+            os_log(.error, log: log, "Error decoding compatibility data: %{public}s", error.localizedDescription)
         }
     }
     return nil

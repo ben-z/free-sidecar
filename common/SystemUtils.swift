@@ -94,9 +94,9 @@ func getXcodeCLTVersion() -> String? {
     case (_, 0):
         outPipe = cltOut
     default:
-        print("No Xcode CLT version info:")
-        print(readToEOF(pipe: xcErr))
-        print(readToEOF(pipe: cltErr))
+        os_log(.debug, log: log, "No Xcode CLT version info:")
+        os_log(.debug, log: log, "xcErr: %{public}s", readToEOF(pipe: xcErr))
+        os_log(.debug, log: log, "cltErr: %{public}s", readToEOF(pipe: cltErr))
         return nil
     }
 

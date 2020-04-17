@@ -92,7 +92,7 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
                 self.installHelper(withReply: reply)
             }
         }.catch { error in
-            os_log(.error, log: log, "Error getting build number: %s. Installing helper", error.localizedDescription)
+            os_log(.error, log: log, "Error getting build number: %{public}s. Installing helper", error.localizedDescription)
             self.installHelper(withReply: reply)
         }
     }
@@ -107,11 +107,11 @@ class FreeSidecarXPCDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarXPCPro
         helperClient.call({ $0.getEndpoint }).then{ endpoint in
             var extForm = try auth.makeExternalForm()
             let data = NSData(bytes: &extForm, length: kAuthorizationExternalFormLength)
+            os_log(.debug, log: log, "Returning helper endpoint")
             reply(nil, endpoint, data)
-            os_log(.error, log: log, "done returning helper endpoint")
         }.catch { error in
             os_log(.error, log: log, "XPC is Unable to get helper endpoint: %{public}s", error.localizedDescription)
-            print(type(of: error))
+            reply(error, nil, nil)
         }
     }
 }

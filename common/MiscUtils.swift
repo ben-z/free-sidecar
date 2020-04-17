@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 // https://medium.com/@TomZurkan/creating-an-atomic-property-in-swift-988fa55cc71
 @propertyWrapper
@@ -36,4 +37,15 @@ class AtomicProperty<T> {
     init(property: T) {
         self.wrappedValue = property
     }
+}
+
+/// Call the closure fn, retrying up to `maxRetry` times.
+func withRetry<R>(maxRetry: Int, _ fn: () throws -> R) throws -> R {
+    for _ in 0..<maxRetry {
+        do {
+            return try fn()
+        } catch { /* ignore the error during retry */ }
+    }
+
+    return try fn()
 }
