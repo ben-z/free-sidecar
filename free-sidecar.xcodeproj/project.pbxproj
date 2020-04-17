@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -419,11 +419,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B552C7602445845100BC1368 /* Build configuration list for PBXNativeTarget "free-sidecar-helper" */;
 			buildPhases = (
+				B5C44FB82447B338007EB1BD /* ShellScript */,
 				138B4647CBCB65DA9838AF5B /* [CP] Check Pods Manifest.lock */,
 				B552C7562445845100BC1368 /* Sources */,
 				B552C7572445845100BC1368 /* Frameworks */,
 				B552C7582445845100BC1368 /* CopyFiles */,
-				B5C44FB82447B338007EB1BD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -668,7 +668,6 @@
 		B5FC3B482447CCA600FA4C24 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
-			dependencyFile = "$(BUILD_ROOT)/info-plist-preprocess-guard.d";
 			files = (
 			);
 			inputFileListPaths = (
@@ -681,7 +680,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -x\n# Force rebuild info.plist\ntouch ${PROJECT_DIR}/${INFOPLIST_FILE}\n\n# Don't run this script if the headers haven't changed\necho \"all :$INFO_PLIST_HEADER_PATH\" > $BUILD_ROOT/info-plist-preprocess-guard.d\n";
+			shellScript = "set -x\n# Force rebuild info.plist\ntouch ${PROJECT_DIR}/${INFOPLIST_FILE}\n";
 		};
 		DBD6D1D022588E3BF8B4E5C0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1087,7 +1086,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "free-sidecar-helper/ben-z.free-sidecar-helper.entitlements";
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 18;
 				EXECUTABLE_PREFIX = "$(PRODUCT_BUNDLE_IDENTIFIER:base).";
 				INFOPLIST_FILE = "free-sidecar-helper/Info.plist";
 				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
@@ -1124,7 +1123,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "free-sidecar-helper/ben-z.free-sidecar-helper.entitlements";
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 18;
 				EXECUTABLE_PREFIX = "$(PRODUCT_BUNDLE_IDENTIFIER:base).";
 				INFOPLIST_FILE = "free-sidecar-helper/Info.plist";
 				INFOPLIST_OUTPUT_FORMAT = "same-as-input";

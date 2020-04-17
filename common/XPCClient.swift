@@ -116,6 +116,40 @@ class XPCClient<P>  {
         return promise
     }
 
+    /// A version of `call(getMethod:param:)` with specialized for a single-parameter error callback
+    func call<A>(_ getMethod: (P) -> (A, @escaping (Error?) -> Void) -> Void, _ param: A) -> Promise<Void> {
+        let promise = Promise<Void>.pending()
+        if let service = connect().remoteObjectProxyWithErrorHandler(promise.reject) as? P {
+            getMethod(service)(param) {
+                if let error = $0 {
+                    promise.reject(error)
+                } else {
+                    promise.fulfill(())
+                }
+            }
+        } else {
+            promise.reject(XPCUnavailableError())
+        }
+        return promise
+    }
+
+    /// A version of `call(getMethod:param:)` with 0 arguments specialized for a single-parameter error callback
+    func call(_ getMethod: (P) -> (@escaping (Error?) -> Void) -> Void) -> Promise<Void> {
+        let promise = Promise<Void>.pending()
+        if let service = connect().remoteObjectProxyWithErrorHandler(promise.reject) as? P {
+            getMethod(service)() {
+                if let error = $0 {
+                    promise.reject(error)
+                } else {
+                    promise.fulfill(())
+                }
+            }
+        } else {
+            promise.reject(XPCUnavailableError())
+        }
+        return promise
+    }
+
     /// A version of `call(getMethod:param:)` with 0 arguments
     func call<R>(_ getMethod: (P) -> (@escaping (R) -> Void) -> Void) -> Promise<R> {
         let promise = Promise<R>.pending()

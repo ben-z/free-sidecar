@@ -22,23 +22,11 @@ func xpcUpperCaseAndJoinStrings(_ string1: String, _ string2: String) -> Promise
 }
 
 func xpcInstallHelper() -> Promise<Void> {
-    xpcClient.call({ $0.installHelper }).then {
-        if let error = $0 {
-            return Promise<Void> { throw error }
-        } else {
-            return Promise<Void> { resolve, reject in resolve(()) }
-        }
-    }
+    xpcClient.call({ $0.installHelper })
 }
 
 func xpcUpdateHelper() -> Promise<Void> {
-    xpcClient.call({ $0.updateHelper }).then {
-        if let error = $0 {
-            return Promise<Void> { throw error }
-        } else {
-            return Promise<Void> { resolve, reject in resolve(()) }
-        }
-    }
+    xpcClient.call({ $0.updateHelper })
 }
 
 func xpcGetHelperEndpoint() -> Promise<(Error?, NSXPCListenerEndpoint?, NSData?)> {

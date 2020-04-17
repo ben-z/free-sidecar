@@ -9,6 +9,7 @@
 import SwiftUI
 import os.log
 import Promises
+import free_sidecar_helper
 
 struct ModelButtonStyle: ButtonStyle {
     let isEnabled: Bool
@@ -59,9 +60,11 @@ struct ContentView: View {
     private let sipDisabled = isSIPDisabled()
     private let isSidecarCoreModified = hasAppleSignature(filePath: SYSTEM_SIDECARCORE_PATH)
     private let authExtFormData: NSData
+    private let helperConnection: XPCClient<FreeSidecarHelperProtocol>
 
     // Very bad to let the view handle actions. But here we are making an MVP
-    init(_ authExtFormData: NSData) {
+    init(helperConnection: XPCClient<FreeSidecarHelperProtocol>, authExtFormData: NSData) {
+        self.helperConnection = helperConnection
         self.authExtFormData = authExtFormData
     }
 
@@ -138,20 +141,20 @@ struct ContentView: View {
                                     return
                                 }
 
-                                guard let backupLocation = panel.url else {
+                                guard let backupURL = panel.url else {
                                     os_log(.info, log: log, "panel.url is nil, aborting")
                                     return
                                 }
 
-                                os_log(.info, log: log, "Saving backup file to %{public}s", backupLocation.path)
+                                os_log(.info, log: log, "Saving backup file to %{public}s", backupURL.path)
                                 do {
-                                    if FileManager.default.fileExists(atPath: backupLocation.path) {
-                                        try FileManager.default.trashItem(at: backupLocation, resultingItemURL: nil)
+                                    if FileManager.default.fileExists(atPath: backupURL.path) {
+                                        try FileManager.default.trashItem(at: backupURL, resultingItemURL: nil)
                                     }
-                                    try FileManager.default.copyItem(at: URL(fileURLWithPath: SYSTEM_SIDECARCORE_PATH), to: backupLocation)
-                                    os_log(.debug, "Back up successful")
+                                    try FileManager.default.copyItem(at: URL(fileURLWithPath: SYSTEM_SIDECARCORE_PATH), to: backupURL)
+                                    os_log(.debug, log: log, "Back up successful")
                                 } catch {
-                                    os_log(.error, "Error backing up SidecarCore (%{public}s). Aborting", error.localizedDescription)
+                                    os_log(.error, log: log, "Error backing up SidecarCore (%{public}s). Aborting", error.localizedDescription)
                                     return
                                 }
 
@@ -164,18 +167,68 @@ struct ContentView: View {
                                     }
                                     try FileManager.default.copyItem(at: URL(fileURLWithPath: SYSTEM_SIDECARCORE_PATH), to: wipURL)
                                 } catch {
-                                    os_log(.error, "Unable to copy SidecarCore to working directory (%{public}s), aborting.", error.localizedDescription)
+                                    os_log(.error, log: log, "Unable to copy SidecarCore to working directory (%{public}s), aborting.", error.localizedDescription)
                                     return
                                 }
 
+                                os_log(.info, log: log, "Patching %{public}s", wipURL.path)
                                 do {
                                     try patch(models: dostuff2(sidecarCore: wipURL), sidecarCore: wipURL)
                                 } catch {
-                                    os_log(.error, "Unable to patch SidecarCore (%{public}s), aborting.", error.localizedDescription)
+                                    os_log(.error, log: log, "Unable to patch SidecarCore (%{public}s), aborting.", error.localizedDescription)
                                     return
                                 }
 
-                                // TODO: (privileged operations) mount, copy back, codesign, nvram
+                                os_log(.info, log: log, "Mounting / as rw")
+                                do {
+                                    try await(self.helperConnection.call({ $0.mountRootAsRW }))
+                                } catch {
+                                    os_log(.error, log: log, "Unable to mount / as RW (%{public}s), aborting.", error.localizedDescription)
+                                    return
+                                }
+
+                                // TODO: only do this for 10.15.4+
+                                os_log(.info, log: log, "Setting nvram boot-flags")
+                                do {
+                                    try await(self.helperConnection.call({ $0.setNVRAMBootFlag }))
+                                } catch {
+                                    os_log(.error, log: log, "Unable to set nvram boot-flags (%{public}s), aborting.", error.localizedDescription)
+                                    return
+                                }
+
+                                os_log(.info, log: log, "Overwriting system SidecarCore")
+                                do {
+                                    try await(self.helperConnection.call({ $0.overwriteSystemSidecarCore }, wipURL))
+                                } catch {
+                                    // TODO: why does it always work on the second try?
+                                    os_log(.error, log: log, "Unable to overwrite system SidecarCore, trying again.", error.localizedDescription)
+                                    do {
+                                        try await(self.helperConnection.call({ $0.overwriteSystemSidecarCore }, wipURL))
+                                    } catch {
+                                        os_log(.error, log: log, "Unable to overwrite system SidecarCore, restoring backup file and aborting.", error.localizedDescription)
+                                        do {
+                                            try await(self.helperConnection.call({ $0.overwriteSystemSidecarCore }, backupURL))
+                                        } catch {
+                                            os_log(.error, log: log, "Unable to restore backup SidecarCore. Please manually troubleshoot", error.localizedDescription)
+                                        }
+                                        return
+                                    }
+                                }
+
+                                os_log(.info, log: log, "Code signing")
+                                do {
+                                    try await(self.helperConnection.call({ $0.signSystemSidecarCore }))
+                                } catch {
+                                    os_log(.error, log: log, "Unable to codesign SidecarCore, restoring backup file and aborting.", error.localizedDescription)
+                                    do {
+                                        try await(self.helperConnection.call({ $0.overwriteSystemSidecarCore }, backupURL))
+                                    } catch {
+                                        os_log(.error, log: log, "Unable to restore backup SidecarCore. Please manually troubleshoot", error.localizedDescription)
+                                    }
+                                    return
+                                }
+
+                                os_log(.info, log: log, "Done")
 
                                 self.autoPatchText = "Done!"
                             }

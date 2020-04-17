@@ -62,8 +62,100 @@ class FreeSidecarHelperDelegate: NSObject, NSXPCListenerDelegate, FreeSidecarHel
         reply(service.endpoint)
     }
 
-    func mountRootAsRW(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void) {}
-    func overwriteSystemSidecarCore(with src: URL, withReply reply: @escaping (NSXPCListenerEndpoint) -> Void) {}
-    func signSystemSidecarCore(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void) {}
-    func setNVRAMBootFlag(withReply reply: @escaping (NSXPCListenerEndpoint) -> Void) {}
+    func mountRootAsRW(withReply reply: @escaping (Error?) -> Void) {
+        let task = Process()
+        let errorPipe = Pipe()
+
+        task.executableURL = URL(fileURLWithPath: "/sbin/mount")
+        task.arguments = ["-uw", "/"]
+        task.standardError = errorPipe
+
+        do {
+            try task.run()
+        } catch {
+            // task launched unsuccessfully
+            os_log(.debug, log: log, "mount task launched unsuccessfully: %{public}s", error.localizedDescription)
+            reply(error)
+            return
+        }
+
+        task.waitUntilExit()
+        if task.terminationStatus != 0 {
+            let errorMsg = readToEOF(pipe: errorPipe)
+            os_log(.debug, log: log, "mount finished unsuccessfully: %{public}s", errorMsg)
+            reply(HelperError(.commandError, dueTo: errorMsg))
+        } else {
+            os_log(.debug, log: log, "mounted")
+            reply(nil)
+        }
+    }
+    func setNVRAMBootFlag(withReply reply: @escaping (Error?) -> Void) {
+        let task = Process()
+        let errorPipe = Pipe()
+
+        task.executableURL = URL(fileURLWithPath: "/usr/sbin/nvram")
+        task.arguments = ["boot-args=\"amfi_get_out_of_my_way=0x1\""]
+        task.standardError = errorPipe
+
+        do {
+            try task.run()
+        } catch {
+            // task launched unsuccessfully
+            os_log(.debug, log: log, "nvram task launched unsuccessfully: %{public}s", error.localizedDescription)
+            reply(error)
+            return
+        }
+
+        task.waitUntilExit()
+        if task.terminationStatus != 0 {
+            let errorMsg = readToEOF(pipe: errorPipe)
+            os_log(.debug, log: log, "nvram task finished unsuccessfully: %{public}s", errorMsg)
+            reply(HelperError(.commandError, dueTo: errorMsg))
+        } else {
+            os_log(.debug, log: log, "Finished setting nvram boot-args")
+            reply(nil)
+        }
+    }
+    func overwriteSystemSidecarCore(with src: URL, withReply reply: @escaping (Error?) -> Void) {
+        let systemSidecarCoreURL = URL(fileURLWithPath: SYSTEM_SIDECARCORE_PATH)
+        os_log(.debug, log: log, "replacing %{public}s with %{public}s", systemSidecarCoreURL.path, src.path)
+        do {
+            if FileManager.default.fileExists(atPath: systemSidecarCoreURL.path) {
+                try FileManager.default.trashItem(at: systemSidecarCoreURL, resultingItemURL: nil)
+            }
+            try FileManager.default.copyItem(at: src, to: systemSidecarCoreURL)
+            os_log(.debug, log: log, "successfully replaced system SidecarCore with %{public}s", src.path)
+            reply(nil)
+        } catch {
+            os_log(.debug, log: log, "Error when overwriting system SidecarCore: %{public}s", error.localizedDescription)
+            reply(error)
+        }
+    }
+    func signSystemSidecarCore(withReply reply: @escaping (Error?) -> Void) {
+        let task = Process()
+        let errorPipe = Pipe()
+
+        task.executableURL = URL(fileURLWithPath: "/usr/bin/codesign")
+        task.arguments = ["-f", "-s", "-", SYSTEM_SIDECARCORE_PATH]
+        task.standardError = errorPipe
+
+        do {
+            try task.run()
+        } catch {
+            // task launched unsuccessfully
+            os_log(.debug, log: log, "codesign task launched unsuccessfully: %{public}s", error.localizedDescription)
+            reply(error)
+            return
+        }
+
+        task.waitUntilExit()
+        if task.terminationStatus != 0 {
+            let errorMsg = readToEOF(pipe: errorPipe)
+            os_log(.debug, log: log, "codesign task finished unsuccessfully: %{public}s", errorMsg)
+            reply(HelperError(.commandError, dueTo: errorMsg))
+        } else {
+            os_log(.debug, log: log, "Finished code signing")
+            reply(nil)
+        }
+    }
 }
