@@ -139,7 +139,7 @@ struct ContentView: View {
                         .padding(.trailing, 20)
                 }.padding()
                 VStack {
-                    Text("8. Sign the patched SidecarCore (in Terminal) (For macOS Catalina 10.15.4+ users, please refer the README):")
+                    Text("8. Sign the patched SidecarCore (in Terminal) (For macOS Catalina 10.15.4+ users, please refer the README for special instructions):")
                     TextField("", text: $sign)
                         .font(.system(size: 10, design: .monospaced))
                         .padding(.leading, 20)
