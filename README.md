@@ -66,13 +66,13 @@ sudo cp ~/Downloads/SidecarCore /System/Library/PrivateFrameworks/SidecarCore.fr
 8. Sign the patched SidecarCore (in Terminal):
     * If you see an error in this step, make sure you have xcode command-line tools installed (`xcode-select --install`, see [#3]) or updated (through App Store, see [#2]).
     * Don't restart your computer until you complete this step properly (or revert the backup file)! Many people have run into issues with this ([#28], [#22]).
-    * **macOS Catalina 10.15.4+ users: [Add `amfi_get_out_of_my_way=0x1` to NVRAM boot flags](https://github.com/ben-z/free-sidecar/issues/59#issuecomment-603953953), then skip step 9.**
+    * **macOS Catalina 10.15.4+ users:** Run [`sudo nvram boot-args="amfi_get_out_of_my_way=0x1"`](https://github.com/ben-z/free-sidecar/issues/59#issuecomment-603953953), **then skip step 9.**
 
 ```
 sudo codesign -f -s - /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore
 ```
 
-9. (Optional, but recommended **(but [not recommended][#59] for macOS Catalina 10.15.4)**) Reboot Into Recovery, re-enable System Integrity Protection:
+9. (Optional, but recommended **(but [not recommended][#59] for macOS Catalina 10.15.4+)**) Reboot Into Recovery, re-enable System Integrity Protection:
 
 ```
 csrutil enable
@@ -88,7 +88,7 @@ csrutil enable
      
 1. "Error 32002"
 
-    This happens on wireless connection for some models. Try using a wire instead. (Some people have reported that wired isn't working either on some older models e.g. [MacbookPro 2012](https://www.reddit.com/r/MacOSBeta/comments/dnxxc7/psa_enable_sidecar_on_older_devices_works_for/f5l64ni?utm_source=share&utm_medium=web2x))
+    This happens on wireless connection for some models. Try using a wire instead and confirm your device appears listed on Finder and it's trusted. If it does not appear, try a different lightning cable (Some people have reported that wired isn't working either on some older models e.g. [MacbookPro 2012](https://www.reddit.com/r/MacOSBeta/comments/dnxxc7/psa_enable_sidecar_on_older_devices_works_for/f5l64ni?utm_source=share&utm_medium=web2x))
     
 1. "None of my apps open anymore, They keep crashing!"
     
@@ -120,7 +120,10 @@ csrutil enable
     sudo cp ~/Downloads/SidecarCore.bak /System/Library/PrivateFrameworks/SidecarCore.framework/Versions/A/SidecarCore
     ```
     
-    Then re-enable System Integrity Protection (step 9). Your system should be in the same state as before you applied the patch!
+    * macOS 10.15.4+: Run `sudo nvram -d boot-args`
+    * Earlier macOS 10.15 versions: re-enable System Integrity Protection (step 9).
+
+    Your system should be in the same state as before you applied the patch!
 
 ### Contributing
 
